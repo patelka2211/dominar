@@ -1,68 +1,113 @@
 # Dominar
 
-https://user-images.githubusercontent.com/82671701/237000484-d6e3b71f-f269-4328-80a8-029f97037aee.mp4
+![](https://patelka2211.github.io/dominar/website-stuff/media/poster.png)
 
 Dominar is a powerful library designed to make it easy for developers to manipulate the Document Object Model (DOM) and create dynamic HTML content. Dominar empowers you to take control of your web development projects like a pro. Unleash the power to dominate the DOM with Dominar.
 
-## Usage
+## Installation
 
-Dominar is available in both IIFE and ESM format.
+npm package coming soon
 
--   If you want to use it in your project then you need to add this [Domimar’s ESM folder](https://github.com/patelka2211/dominar/tree/main/build/Dominar) in your development environment.
--   Or if you want to directly import Dominar in the your website then you should copy and paste the script tag given below in your website’s `<head>` tag.
+<!-- ## Installation
+
+Install Dominar from npm
+
+```sh
+npm i @patelka2211/dominar
+```
+
+or add Dominar to a website as a `<script>` tag
 
 ```html
-<script src="https://patelka2211.github.io/dominar/build/Dominar.iife.js"><script>
+<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar/Dominar.js"></script>
 ```
 
-## Example
+## Examples
 
-Both ESM and IIFE format comes with three functions and one extensions object which contains another two functions.
+-   When using as a npm package.
 
-```tsx
-// Functions directly provided by the library
+```js
+import {
+    extensions,
+    newTag,
+    newTagList,
+    renderTag,
+} from "@patelka2211/dominar";
 
-// Creates an DominarTag with the given tag name and attributes.
-function newTag(
-    tagName: keyof HTMLElementTagNameMap,
-    attributes?: DominarTagData
-): DominarTag;
+let tagList = newTagList(
+    "Text before button",
+    newTag("button", {
+        children: "Click this button",
+        eventListeners: {
+            click: (ev) => {
+                console.log(ev);
+            },
+        },
+    }),
+    "Text after button"
+);
 
-// A function that returns a list of DominarTag based on the provided arguments.
-function newTagList(...tags: DominarTagList): DominarTagList;
+let tag = newTag("div", {
+    id: "div-1",
+    children: tagList,
+});
 
-// Renders a DominarObject into a given root HTMLElement using the specified options.
-function renderTag(
-    root: HTMLElement,
-    DominarObject: DominarObject | string,
-    options?: RenderOptions
-): Promise<void>;
+renderTag(document.body, tag, {
+    clearBeforeRender: false,
+    insertType: "prepend",
+});
 
-// Accessing funcitons in IIFE file
-Dominar.newTag(param1, param2);
-Dominar.newTagList(...paramList);
-Dominar.renderTag(param1, param2);
+extensions.setAttributes(document.body, {
+    class: "class1 class2 class3",
+    style: "background: blue;",
+});
+
+extensions.assignEventListeners(document.body, {
+    keydown: (ev) => {
+        console.log(ev);
+    },
+});
 ```
 
-```tsx
-// Another two functions which are provided through extensions objects.
+OR
 
-// Sets the attributes of an HTML element.
-function setAttributes(
-    element: HTMLElement,
-    attributes: HTMLElementAttributes
-): void;
+-   When added as a `<script>` tag in a website.
 
-// Assigns event listeners to an HTML element based on an object of event listener functions.
-function assignEventListeners(
-    element: HTMLElement,
-    eventListeners: DominarEventListenersObject
-): void;
+```js
+let tagList = Dominar.newTagList(
+    "Text before button",
+    Dominar.newTag("button", {
+        children: "Click this button",
+        eventListeners: {
+            click: (ev) => {
+                console.log(ev);
+            },
+        },
+    }),
+    "Text after button"
+);
 
-// To access these functions
-Dominar.extensions.setAttributes(param1, param2);
-Dominar.extensions.assignEventListeners(param1, param2);
-```
+let tag = Dominar.newTag("div", {
+    id: "div-1",
+    children: tagList,
+});
+
+Dominar.renderTag(document.body, tag, {
+    clearBeforeRender: false,
+    insertType: "prepend",
+});
+
+Dominar.extensions.setAttributes(document.body, {
+    class: "class1 class2 class3",
+    style: "background: blue;",
+});
+
+Dominar.extensions.assignEventListeners(document.body, {
+    keydown: (ev) => {
+        console.log(ev);
+    },
+});
+``` -->
 
 ## License
 

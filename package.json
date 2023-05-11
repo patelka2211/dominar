@@ -1,0 +1,38 @@
+{
+  "name": "@patelka2211/dominar",
+  "version": "1.0.0",
+  "description": "Dominar is a powerful library designed to make it easy for developers to manipulate the Document Object Model (DOM) and create dynamic HTML content. Dominar empowers you to take control of your web development projects like a pro. Unleash the power to dominate the DOM with Dominar.",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "rm -rf ./lib && tsc -p tsconfig.json && rollup -c && terser ./Dominar.js -c -m -o ./Dominar.js",
+    "prepare": "npm run build"
+  },
+  "files": [
+    "lib/**/*",
+    "Dominar.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patelka2211/dominar.git"
+  },
+  "keywords": [
+    "Dominar",
+    "Dominar.js",
+    "DominarByKP",
+    "KartavyaPatel",
+    "patelka2211"
+  ],
+  "author": "Kartavya Patel <patelka2211@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/patelka2211/dominar/issues"
+  },
+  "homepage": "https://github.com/patelka2211/dominar#readme",
+  "devDependencies": {
+    "rollup": "^3.21.6",
+    "terser": "^5.17.3",
+    "typescript": "^5.0.4"
+  }
+}

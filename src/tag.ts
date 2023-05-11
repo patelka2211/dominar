@@ -9,6 +9,10 @@ export function newTag(
     tagName: keyof HTMLElementTagNameMap,
     attributes?: DominarTagData
 ): DominarTag {
+    (tagName as string) = (tagName as string).trim();
+    if (tagName === undefined || (tagName as string) === "")
+        throw Error("Parameter 'tagName' must be a string and can't be empty.");
+
     if (attributes === undefined) return { [tagName]: {} } as DominarTag;
 
     const newAttributes: DominarTagData = {};

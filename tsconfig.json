@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "lib": ["ES2017", "DOM"],
+        "module": "ES6",
+        "rootDir": "./src",
+        "declaration": true,
+        "outDir": "./lib",
+        "strict": true
+        // "esModuleInterop": true,
+        // "forceConsistentCasingInFileNames": true,
+        // "skipLibCheck": true
+    },
+    "include": ["src"],
+    "exclude": ["node_package", "**/__tests__/*"]
+}

@@ -5,6 +5,7 @@ import {
     DominarTag,
     DominarTagList,
     DominarObject,
+    typeOfObject,
 } from "./types";
 /**
  * Renders a list of DominarTag and appends them to an HTML element.
@@ -60,7 +61,7 @@ function renderSingleTag(tag: DominarTag): HTMLElement | string {
                 ) {
                     if (typeof attributeValue === "string")
                         renderedTag.append(attributeValue);
-                    else if (attributeValue.length === undefined)
+                    else if (typeOfObject(attributeValue) === "record")
                         renderedTag.append(
                             renderSingleTag(attributeValue as DominarTag)
                         );
@@ -72,7 +73,7 @@ function renderSingleTag(tag: DominarTag): HTMLElement | string {
                 } else if (
                     attributeName === "eventListeners" &&
                     typeof attributeValue === "object" &&
-                    attributeValue.length === undefined
+                    typeOfObject(attributeValue) === "record"
                 ) {
                     assignEventListeners(
                         renderedTag,
@@ -131,7 +132,7 @@ export async function renderTag(
 
     if (typeof DominarObject === "string")
         root[options.insertType](DominarObject);
-    else if (DominarObject.length === undefined)
+    else if (typeOfObject(DominarObject) === "record")
         root[options.insertType](renderSingleTag(DominarObject as DominarTag));
     else {
         let currentInnerHTML;

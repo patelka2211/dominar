@@ -5,11 +5,18 @@ export type DominarTag = {
     [tagName: string]: DominarTagData;
 };
 export type DominarTagList = (DominarTag | string)[];
-export type DominarEventListenersObject = {
-    [K in keyof HTMLElementEventMap]?: (ev: HTMLElementEventMap[K]) => void;
-} & {
-    [type: string]: EventListenerOrEventListenerObject;
-};
+export type DominarEventListenersObject =
+    | {
+          [K in keyof HTMLElementEventMap]?: (
+              ev: HTMLElementEventMap[K]
+          ) => void;
+      }
+    | {
+          [type: string]: EventListenerOrEventListenerObject;
+      }
+    | {
+          [type: string]: any;
+      };
 export type HTMLElementAttributes = {
     [AttributeName: string]: string | number | true;
 };
@@ -34,3 +41,9 @@ export type DominarTagData = {
 
     eventListeners?: DominarEventListenersObject; // Type "object"
 };
+
+export function typeOfObject(object: unknown) {
+    if (typeof object === "object")
+        if (Array.isArray(object)) return "array";
+        else return "record";
+}

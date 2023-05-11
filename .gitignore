@@ -1,13 +1,9 @@
 # macOS .DS_Store file
 **/.DS_Store
 
-# Development purpose files
-config.rollup.sh
-config.terser.sh
-config.typescript.sh
-config.build.sh
-rollup.config.mjs
-tsconfig.json
+# Development purpose files and folders
+node_modules
+lib
 
 # VSCode settings
 .vscode
