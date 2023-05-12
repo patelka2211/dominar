@@ -1,3 +1,4 @@
+import { DominarEventListenersObject } from "./types";
 /**
  * Assigns event listeners to an HTML element based on an object of event listener functions.
  * @param {HTMLElement} element The HTML element to which the event listeners will be assigned.
@@ -16,11 +17,21 @@
  * };
  * assignEventListeners(button, eventListeners);
  */
-export function assignEventListeners(element, eventListeners) {
+export function assignEventListeners(
+    element: HTMLElement,
+    eventListeners: DominarEventListenersObject
+): void {
     for (const type in eventListeners) {
         if (Object.prototype.hasOwnProperty.call(eventListeners, type)) {
-            const listener = eventListeners[type];
-            element.addEventListener(type, listener);
+            const listener =
+                eventListeners[type as keyof typeof eventListeners];
+
+            if (typeof listener === "function")
+                element.addEventListener(type, listener);
+            else
+                console.warn(
+                    `"${type}" type of event listener is not assigned because it is not function.`
+                );
         }
     }
 }

@@ -1,78 +1,153 @@
 # Dominar
 
-https://user-images.githubusercontent.com/82671701/237000484-d6e3b71f-f269-4328-80a8-029f97037aee.mp4
+[![](https://cdn.jsdelivr.net/gh/patelka2211/dominar@master/website-stuff/media/poster.png)](https://www.npmjs.com/package/@patelka2211/dominar)
 
 Dominar is a powerful library designed to make it easy for developers to manipulate the Document Object Model (DOM) and create dynamic HTML content. Dominar empowers you to take control of your web development projects like a pro. Unleash the power to dominate the DOM with Dominar.
 
-## Usage
+## Installation
 
-Dominar is available in both IIFE and ESM format.
+[
+![npm (scoped)](https://img.shields.io/npm/v/@patelka2211/dominar)
+![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@patelka2211/dominar)
+![npm](https://img.shields.io/npm/dw/@patelka2211/dominar)
+![jsDelivr hits (npm scoped)](https://img.shields.io/jsdelivr/npm/hw/@patelka2211/dominar)
+](https://www.npmjs.com/package/@patelka2211/dominar)
 
--   If you want to use it in your project then you need to add this [Domimar’s ESM folder](https://github.com/patelka2211/dominar/tree/main/build/Dominar) in your development environment.
--   Or if you want to directly import Dominar in the your website then you should copy and paste the script tag given below in your website’s `<head>` tag.
+To install Dominar using npm, run the following command:
+
+```sh
+npm i @patelka2211/dominar
+```
+
+Alternatively, you can include Dominar in your website using a `<script>` tag:
 
 ```html
-<script src="https://patelka2211.github.io/dominar/build/Dominar.iife.js"><script>
+<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.0.1/Dominar.iife.js"></script>
 ```
 
-## Example
+## Examples
 
-Both ESM and IIFE format comes with three functions and one extensions object which contains another two functions.
+Here are some examples of how you can use Dominar:
 
-```tsx
-// Functions directly provided by the library
+### When using as a npm package.
 
-// Creates an DominarTag with the given tag name and attributes.
-function newTag(
-    tagName: keyof HTMLElementTagNameMap,
-    attributes?: DominarTagData
-): DominarTag;
+```js
+import {
+    extensions,
+    newTag,
+    newTagList,
+    renderTag,
+} from "@patelka2211/dominar";
 
-// A function that returns a list of DominarTag based on the provided arguments.
-function newTagList(...tags: DominarTagList): DominarTagList;
+let tagList = newTagList(
+    "Text before button",
+    newTag(
+        "button", // The name of the DominarTag to create.
+        {
+            children: "Click this button",
+            eventListeners: {
+                click: (ev) => {
+                    console.log(ev);
+                },
+            },
+        }
+    ),
+    "Text after button"
+);
 
-// Renders a DominarObject into a given root HTMLElement using the specified options.
-function renderTag(
-    root: HTMLElement,
-    DominarObject: DominarObject | string,
-    options?: RenderOptions
-): Promise<void>;
+let tag = newTag(
+    "div", // The name of the DominarTag to create.
+    {
+        id: "div-1",
+        children: tagList,
+    }
+);
 
-// Accessing funcitons in IIFE file
-Dominar.newTag(param1, param2);
-Dominar.newTagList(...paramList);
-Dominar.renderTag(param1, param2);
+renderTag(
+    document.body, // The root HTMLElement to render the DominarObject into.
+    tag, // The DominarObject to be rendered.
+    {
+        clearBeforeRender: false, // Determines whether the root HTMLElement should be cleared before rendering.
+        insertType: "prepend", // Type of insert. "append" or "prepend".
+    } // The optional rendering options.
+);
+
+extensions.setAttributes(
+    document.body, // The HTML element to set attributes on.
+    {
+        class: "class1 class2 class3",
+        style: "background-color: azure;",
+    }
+);
+
+extensions.assignEventListeners(
+    document.body, // The HTML element to which the event listeners will be assigned.
+    {
+        keydown: (ev) => {
+            console.log(ev);
+        },
+    }
+);
 ```
 
-```tsx
-// Another two functions which are provided through extensions objects.
+### When included as a `<script>` tag in a website.
 
-// Sets the attributes of an HTML element.
-function setAttributes(
-    element: HTMLElement,
-    attributes: HTMLElementAttributes
-): void;
+```html
+<script>
+    let tagList = Dominar.newTagList(
+        "Text before button",
+        Dominar.newTag(
+            "button", // The name of the DominarTag to create.
+            {
+                children: "Click this button",
+                eventListeners: {
+                    click: (ev) => {
+                        console.log(ev);
+                    },
+                },
+            }
+        ),
+        "Text after button"
+    );
 
-// Assigns event listeners to an HTML element based on an object of event listener functions.
-function assignEventListeners(
-    element: HTMLElement,
-    eventListeners: DominarEventListenersObject
-): void;
+    let tag = Dominar.newTag(
+        "div", // The name of the DominarTag to create.
+        {
+            id: "div-1",
+            children: tagList,
+        }
+    );
 
-// To access these functions
-Dominar.extensions.setAttributes(param1, param2);
-Dominar.extensions.assignEventListeners(param1, param2);
+    Dominar.renderTag(
+        document.body, // The root HTMLElement to render the DominarObject into.
+        tag, // The DominarObject to be rendered.
+        {
+            clearBeforeRender: false, // Determines whether the root HTMLElement should be cleared before rendering.
+            insertType: "prepend", // Type of insert. "append" or "prepend".
+        } // The optional rendering options.
+    );
+
+    Dominar.extensions.setAttributes(
+        document.body, // The HTML element to set attributes on.
+        {
+            class: "class1 class2 class3",
+            style: "background-color: azure;",
+        }
+    );
+
+    Dominar.extensions.assignEventListeners(
+        document.body, // The HTML element to which the event listeners will be assigned.
+        {
+            keydown: (ev) => {
+                console.log(ev);
+            },
+        }
+    );
+</script>
 ```
 
 ## License
 
--   This project is licensed under the [MIT License](./LICENSE)
--   The MIT License permits the following actions:
-    -   Use the software
-    -   Copy the software
-    -   Modify the software
-    -   Merge the software with other software
-    -   Publish the software
-    -   Distribute the software
-    -   Sublicense the software
--   The permitted actions are subject to the conditions stated in the [LICENSE file](./LICENSE).
+![NPM](https://img.shields.io/npm/l/@patelka2211/dominar)
+
+This project is licensed under the [MIT License](./LICENSE), which permits you to use, copy, modify, merge, publish, distribute, and sublicense the software, subject to the conditions stated in the [LICENSE file](./LICENSE).

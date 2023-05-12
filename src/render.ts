@@ -5,6 +5,8 @@ import {
     DominarTag,
     DominarTagList,
     DominarObject,
+    typeOfObject,
+    RenderOptions,
 } from "./types";
 /**
  * Renders a list of DominarTag and appends them to an HTML element.
@@ -36,7 +38,6 @@ function renderTagList(element: HTMLElement, tagList: DominarTagList): void {
         else element.append(renderSingleTag(item));
     });
 }
-
 /**
  * Renders a HTML element based on the given tag object.
  * @param {Tag} tag The tag object containing the tag name, attributes, children and event listeners.
@@ -60,7 +61,7 @@ function renderSingleTag(tag: DominarTag): HTMLElement | string {
                 ) {
                     if (typeof attributeValue === "string")
                         renderedTag.append(attributeValue);
-                    else if (attributeValue.length === undefined)
+                    else if (typeOfObject(attributeValue) === "record")
                         renderedTag.append(
                             renderSingleTag(attributeValue as DominarTag)
                         );
@@ -72,7 +73,7 @@ function renderSingleTag(tag: DominarTag): HTMLElement | string {
                 } else if (
                     attributeName === "eventListeners" &&
                     typeof attributeValue === "object" &&
-                    attributeValue.length === undefined
+                    typeOfObject(attributeValue) === "record"
                 ) {
                     assignEventListeners(
                         renderedTag,
@@ -96,10 +97,6 @@ function renderSingleTag(tag: DominarTag): HTMLElement | string {
         return "";
     }
 }
-type RenderOptions = {
-    clearBeforeRender?: boolean;
-    insertType?: "prepend" | "append";
-};
 /**
  * Renders a DominarObject into a given root HTMLElement using the specified options.
  * @async
@@ -108,6 +105,7 @@ type RenderOptions = {
  * @param {DominarObject | string} DominarObject The DominarObject to be rendered.
  * @param {RenderOptions} [options] The optional rendering options.
  * @param {boolean} [options.clearBeforeRender=true] Determines whether the root HTMLElement should be cleared before rendering.
+ * @param {string} [options.insertType="append"] Type of insert. "append" or "prepend".
  * @throws {TypeError} If the root parameter is not an HTMLElement or the DominarObject parameter is not a valid DominarObject.
  * @returns {Promise<void>} A Promise that resolves when the rendering is complete.
  */
@@ -131,7 +129,7 @@ export async function renderTag(
 
     if (typeof DominarObject === "string")
         root[options.insertType](DominarObject);
-    else if (DominarObject.length === undefined)
+    else if (typeOfObject(DominarObject) === "record")
         root[options.insertType](renderSingleTag(DominarObject as DominarTag));
     else {
         let currentInnerHTML;
