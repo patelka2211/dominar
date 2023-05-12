@@ -22,7 +22,7 @@ npm i @patelka2211/dominar
 Alternatively, you can include Dominar in your website using a `<script>` tag:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.0.0/Dominar.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.0.1/Dominar.iife.js"></script>
 ```
 
 ## Examples

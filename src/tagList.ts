@@ -8,5 +8,3 @@ import { DominarTagList } from "./types";
 export function newTagList(...tags: DominarTagList): DominarTagList {
     return tags as DominarTagList;
 }
-
-newTagList({}, {}, "", "9");

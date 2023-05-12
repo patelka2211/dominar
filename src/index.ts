@@ -3,7 +3,7 @@ export { newTagList } from "./tagList";
 export { renderTag } from "./render";
 export { extensions } from "./extensions";
 
-const VERSION = "1.0.0";
+const VERSION = "1.0.1";
 
 async function getLatestVersion() {
     try {

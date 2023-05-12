@@ -1,6 +1,6 @@
 {
   "name": "@patelka2211/dominar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Dominar is a powerful library designed to make it easy for developers to manipulate the Document Object Model (DOM) and create dynamic HTML content. Dominar empowers you to take control of your web development projects like a pro. Unleash the power to dominate the DOM with Dominar.",
   "main": "lib/index.js",
   "module": "lib/index.js",

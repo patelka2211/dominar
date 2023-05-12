@@ -35,9 +35,3 @@ export function assignEventListeners(
         }
     }
 }
-
-assignEventListeners(document.body, {
-    click: (ev: MouseEvent) => {
-        console.log();
-    },
-});
