@@ -3,7 +3,7 @@
 
 # Development purpose files and folders
 node_modules
-lib
+/lib
 
 # VSCode settings
 .vscode

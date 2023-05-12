@@ -41,6 +41,10 @@ export type DominarTagData = {
 
     eventListeners?: DominarEventListenersObject; // Type "object"
 };
+export type RenderOptions = {
+    clearBeforeRender?: boolean;
+    insertType?: "prepend" | "append";
+};
 
 export function typeOfObject(object: unknown) {
     if (typeof object === "object")

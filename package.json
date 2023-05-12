@@ -6,12 +6,12 @@
   "module": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rm -rf ./lib && tsc -p tsconfig.json && rollup -c && terser ./Dominar.js -c -m -o ./Dominar.js",
-    "prepare": "npm run build"
+    "build": "rm -rf ./lib/ && tsc -p tsconfig.json && rollup -c && terser ./Dominar.iife.js -c -m -o ./Dominar.iife.js",
+    "prepare": "read -p \"Have you changed version string in all the required files? (y/n) \" answer; if [ \"$answer\" == \"n\" ]; then echo \"\n\nUpdate version strings first.\"; exit; elif [ \"$answer\" == \"y\" ]; then npm run build; else echo \"Invalid answer. Please choose 'y' or 'n'.\"; fi"
   },
   "files": [
     "lib/**/*",
-    "Dominar.js"
+    "Dominar.iife.js"
   ],
   "repository": {
     "type": "git",
@@ -20,9 +20,19 @@
   "keywords": [
     "Dominar",
     "Dominar.js",
-    "DominarByKP",
-    "KartavyaPatel",
-    "patelka2211"
+    "Dominar.iife.js",
+    "front-end",
+    "Dominar by KP",
+    "Developed by KP",
+    "Kartavya Patel",
+    "patelka2211",
+    "Dynamic content",
+    "DOM manipulation",
+    "Front-end development",
+    "UI development",
+    "Lightweight",
+    "Event handling",
+    "Open source"
   ],
   "author": "Kartavya Patel <patelka2211@gmail.com>",
   "license": "MIT",
