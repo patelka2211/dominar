@@ -22,7 +22,7 @@ npm i @patelka2211/dominar
 Alternatively, you can include Dominar in your website using a `<script>` tag:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.0.1/Dominar.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.0.2/Dominar.iife.js"></script>
 ```
 
 ## Examples
@@ -32,117 +32,80 @@ Here are some examples of how you can use Dominar:
 ### When using as a npm package.
 
 ```js
-import {
-    extensions,
-    newTag,
-    newTagList,
-    renderTag,
-} from "@patelka2211/dominar";
+import { Tag, TagList, render } from "@patelka2211/dominar";
 
-let tagList = newTagList(
+let tagList = TagList(
     "Text before button",
-    newTag(
-        "button", // The name of the DominarTag to create.
-        {
-            children: "Click this button",
-            eventListeners: {
-                click: (ev) => {
-                    console.log(ev);
-                },
+    Tag("button")
+        .addChildren("Click this button")
+        .addEventListeners({
+            click: () => {
+                alert("Button clicked");
             },
-        }
-    ),
+        }),
     "Text after button"
 );
 
-let tag = newTag(
-    "div", // The name of the DominarTag to create.
-    {
+let tag = Tag("div")
+    .setAttributes({
         id: "div-1",
-        children: tagList,
-    }
-);
+    })
+    .addChildren(tagList);
 
-renderTag(
-    document.body, // The root HTMLElement to render the DominarObject into.
-    tag, // The DominarObject to be rendered.
-    {
-        clearBeforeRender: false, // Determines whether the root HTMLElement should be cleared before rendering.
-        insertType: "prepend", // Type of insert. "append" or "prepend".
-    } // The optional rendering options.
-);
+render(document.body, tag, {
+    clearBeforeRender: false,
+    insertType: "prepend",
+});
 
-extensions.setAttributes(
-    document.body, // The HTML element to set attributes on.
-    {
-        class: "class1 class2 class3",
-        style: "background-color: azure;",
-    }
-);
+setAttributes(document.body, {
+    class: "class1 class2 class3",
+    style: "background-color: azure;",
+});
 
-extensions.assignEventListeners(
-    document.body, // The HTML element to which the event listeners will be assigned.
-    {
-        keydown: (ev) => {
-            console.log(ev);
-        },
-    }
-);
+assignEventListeners(document.body, {
+    keydown: (ev: KeyboardEvent) => {
+        console.log(ev);
+    },
+});
 ```
 
 ### When included as a `<script>` tag in a website.
 
 ```html
 <script>
-    let tagList = Dominar.newTagList(
+    let tagList = Dominar.TagList(
         "Text before button",
-        Dominar.newTag(
-            "button", // The name of the DominarTag to create.
-            {
-                children: "Click this button",
-                eventListeners: {
-                    click: (ev) => {
-                        console.log(ev);
-                    },
+        Tag("button")
+            .addChildren("Click this button")
+            .addEventListeners({
+                click: () => {
+                    alert("Button clicked");
                 },
-            }
-        ),
+            }),
         "Text after button"
     );
 
-    let tag = Dominar.newTag(
-        "div", // The name of the DominarTag to create.
-        {
+    let tag = Dominar.Tag("div")
+        .setAttributes({
             id: "div-1",
-            children: tagList,
-        }
-    );
+        })
+        .addChildren(tagList);
 
-    Dominar.renderTag(
-        document.body, // The root HTMLElement to render the DominarObject into.
-        tag, // The DominarObject to be rendered.
-        {
-            clearBeforeRender: false, // Determines whether the root HTMLElement should be cleared before rendering.
-            insertType: "prepend", // Type of insert. "append" or "prepend".
-        } // The optional rendering options.
-    );
+    Dominar.render(document.body, tag, {
+        clearBeforeRender: false,
+        insertType: "prepend",
+    });
 
-    Dominar.extensions.setAttributes(
-        document.body, // The HTML element to set attributes on.
-        {
-            class: "class1 class2 class3",
-            style: "background-color: azure;",
-        }
-    );
+    Dominar.setAttributes(document.body, {
+        class: "class1 class2 class3",
+        style: "background-color: azure;",
+    });
 
-    Dominar.extensions.assignEventListeners(
-        document.body, // The HTML element to which the event listeners will be assigned.
-        {
-            keydown: (ev) => {
-                console.log(ev);
-            },
-        }
-    );
+    Dominar.assignEventListeners(document.body, {
+        keydown: (ev: KeyboardEvent) => {
+            console.log(ev);
+        },
+    });
 </script>
 ```
 
