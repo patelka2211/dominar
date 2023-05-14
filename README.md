@@ -22,7 +22,7 @@ npm i @patelka2211/dominar
 Alternatively, you can include Dominar in your website using a `<script>` tag:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.0/Dominar.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.1/Dominar.iife.js"></script>
 ```
 
 ## Examples
@@ -40,7 +40,7 @@ import {
     tagList,
 } from "@patelka2211/dominar";
 
-let tagList = tagList(
+let tagListObject = tagList(
     "Text before button",
     tag("button")
         .addChildren("Click this button")
@@ -52,7 +52,7 @@ let tagList = tagList(
     "Text after button"
 );
 
-let tag = tag("div")
+let tagObject = tag("div")
     .setAttributes({
         id: "div-1",
     })
@@ -62,8 +62,8 @@ render(document.body, tag, {
     clearBeforeRender: false,
     insertType: "prepend",
 }).then(() => {
-    tag = null;
-    tagList = null;
+    tagObject = null;
+    tagListObject = null;
 });
 
 setAttributes(document.body, {
@@ -82,7 +82,7 @@ assignEventListeners(document.body, {
 
 ```html
 <script>
-    let tagList = Dominar.tagList(
+    let tagListObject = Dominar.tagList(
         "Text before button",
         Dominar.tag("button")
             .addChildren("Click this button")
@@ -94,7 +94,7 @@ assignEventListeners(document.body, {
         "Text after button"
     );
 
-    let tag = Dominar.tag("div")
+    let tagObject = Dominar.tag("div")
         .setAttributes({
             id: "div-1",
         })
@@ -104,8 +104,8 @@ assignEventListeners(document.body, {
         clearBeforeRender: false,
         insertType: "prepend",
     }).then(() => {
-        tag = null;
-        tagList = null;
+        tagObject = null;
+        tagListObject = null;
     });
 
     Dominar.setAttributes(document.body, {
