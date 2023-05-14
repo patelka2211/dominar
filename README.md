@@ -9,8 +9,8 @@ Dominar is a powerful library designed to make it easy for developers to manipul
 [
 ![npm (scoped)](https://img.shields.io/npm/v/@patelka2211/dominar)
 ![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@patelka2211/dominar)
-![npm](https://img.shields.io/npm/dw/@patelka2211/dominar)
-![jsDelivr hits (npm scoped)](https://img.shields.io/jsdelivr/npm/hw/@patelka2211/dominar)
+![npm](https://img.shields.io/npm/dm/@patelka2211/dominar)
+![jsDelivr hits (npm scoped)](https://img.shields.io/jsdelivr/npm/hm/@patelka2211/dominar)
 ](https://www.npmjs.com/package/@patelka2211/dominar)
 
 To install Dominar using npm, run the following command:
@@ -22,7 +22,7 @@ npm i @patelka2211/dominar
 Alternatively, you can include Dominar in your website using a `<script>` tag:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.0.2/Dominar.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.0/Dominar.iife.js"></script>
 ```
 
 ## Examples
@@ -32,11 +32,17 @@ Here are some examples of how you can use Dominar:
 ### When using as a npm package.
 
 ```js
-import { Tag, TagList, render } from "@patelka2211/dominar";
+import {
+    assignEventListeners,
+    render,
+    setAttributes,
+    tag,
+    tagList,
+} from "@patelka2211/dominar";
 
-let tagList = TagList(
+let tagList = tagList(
     "Text before button",
-    Tag("button")
+    tag("button")
         .addChildren("Click this button")
         .addEventListeners({
             click: () => {
@@ -46,7 +52,7 @@ let tagList = TagList(
     "Text after button"
 );
 
-let tag = Tag("div")
+let tag = tag("div")
     .setAttributes({
         id: "div-1",
     })
@@ -55,6 +61,9 @@ let tag = Tag("div")
 render(document.body, tag, {
     clearBeforeRender: false,
     insertType: "prepend",
+}).then(() => {
+    tag = null;
+    tagList = null;
 });
 
 setAttributes(document.body, {
@@ -63,8 +72,8 @@ setAttributes(document.body, {
 });
 
 assignEventListeners(document.body, {
-    keydown: (ev: KeyboardEvent) => {
-        console.log(ev);
+    keydown: (ev) => {
+        alert(`Key "${ev.key}" pressed`);
     },
 });
 ```
@@ -73,9 +82,9 @@ assignEventListeners(document.body, {
 
 ```html
 <script>
-    let tagList = Dominar.TagList(
+    let tagList = Dominar.tagList(
         "Text before button",
-        Tag("button")
+        Dominar.tag("button")
             .addChildren("Click this button")
             .addEventListeners({
                 click: () => {
@@ -85,7 +94,7 @@ assignEventListeners(document.body, {
         "Text after button"
     );
 
-    let tag = Dominar.Tag("div")
+    let tag = Dominar.tag("div")
         .setAttributes({
             id: "div-1",
         })
@@ -94,6 +103,9 @@ assignEventListeners(document.body, {
     Dominar.render(document.body, tag, {
         clearBeforeRender: false,
         insertType: "prepend",
+    }).then(() => {
+        tag = null;
+        tagList = null;
     });
 
     Dominar.setAttributes(document.body, {
@@ -102,8 +114,8 @@ assignEventListeners(document.body, {
     });
 
     Dominar.assignEventListeners(document.body, {
-        keydown: (ev: KeyboardEvent) => {
-            console.log(ev);
+        keydown: (ev) => {
+            alert(`Key "${ev.key}" pressed`);
         },
     });
 </script>

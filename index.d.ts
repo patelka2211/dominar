@@ -1,7 +1,7 @@
 type DominarTagAttributes = {
     [attributeName: string]: string | number | true;
 };
-type DominarEventListenersObject = {
+type DominarEventListeners = {
     [K in keyof HTMLElementEventMap]?: (ev: HTMLElementEventMap[K]) => void;
 };
 type RenderOptions = {
@@ -41,18 +41,18 @@ declare class DominarTag {
     /**
      * Adds event listeners to the DOM element.
      *
-     * @param {DominarEventListenersObject} eventListeners An object containing the event listeners to add.
+     * @param {DominarEventListeners} eventListeners An object containing the event listeners to add.
      * @returns {DominarTag} The current DominarTag instance, for chaining.
      */
-    addEventListeners(eventListeners: DominarEventListenersObject): DominarTag;
+    addEventListeners(eventListeners: DominarEventListeners): DominarTag;
 }
 /**
  * Creates a new instance of DominarTag.
  * @param {string} tagName The tag name for the new DominarTag instance.
  * @returns {DominarTag} A new instance of DominarTag.
  */
-declare function Tag<K extends keyof HTMLElementTagNameMap>(tagName: K): DominarTag;
-declare function Tag(tagName: string): DominarTag;
+declare function tag<K extends keyof HTMLElementTagNameMap>(tagName: K): DominarTag;
+declare function tag(tagName: string): DominarTag;
 /**
  * Represents a list of rendered HTML tags.
  */
@@ -69,7 +69,7 @@ declare class DominarTagList {
  * @param tags An array of tags to include in the DominarTagList.
  * @returns A new instance of DominarTagList.
  */
-declare function TagList(...tags: (string | number | DominarTag)[]): DominarTagList;
+declare function tagList(...tags: (string | number | DominarTag)[]): DominarTagList;
 
 /**
  * Renders a DOM element or a list of elements to a specified HTML element.
@@ -100,6 +100,6 @@ declare function setAttributes(element: HTMLElement, attributes: DominarTagAttri
  * @param {Object.<string, function>} eventListeners An object containing event listener functions keyed by event type.
  * @returns {HTMLElement} The same HTML element with the added event listeners.
  */
-declare function assignEventListeners(element: HTMLElement, eventListeners: DominarEventListenersObject): HTMLElement;
+declare function assignEventListeners(element: HTMLElement, eventListeners: DominarEventListeners): HTMLElement;
 
-export { Tag, TagList, assignEventListeners, render, setAttributes };
+export { assignEventListeners, render, setAttributes, tag, tagList };

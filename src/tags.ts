@@ -1,6 +1,6 @@
 import { setAttributes } from "./attributes";
 import { assignEventListeners } from "./eventListeners";
-import { DominarEventListenersObject, DominarTagAttributes } from "./types";
+import { DominarEventListeners, DominarTagAttributes } from "./types";
 
 /**
  * A class representing a DOM element with methods for setting attributes, adding children,
@@ -62,11 +62,11 @@ class DominarTag {
     /**
      * Adds event listeners to the DOM element.
      *
-     * @param {DominarEventListenersObject} eventListeners An object containing the event listeners to add.
+     * @param {DominarEventListeners} eventListeners An object containing the event listeners to add.
      * @returns {DominarTag} The current DominarTag instance, for chaining.
      */
     public addEventListeners(
-        eventListeners: DominarEventListenersObject
+        eventListeners: DominarEventListeners
     ): DominarTag {
         if (this.eventListenersSet) return this;
         assignEventListeners(this.renderedTag, eventListeners);
@@ -80,9 +80,14 @@ class DominarTag {
  * @param {string} tagName The tag name for the new DominarTag instance.
  * @returns {DominarTag} A new instance of DominarTag.
  */
-function Tag<K extends keyof HTMLElementTagNameMap>(tagName: K): DominarTag;
-function Tag(tagName: string): DominarTag;
-function Tag(tagName: string): DominarTag {
+function tag<K extends keyof HTMLElementTagNameMap>(tagName: K): DominarTag;
+function tag(tagName: string): DominarTag;
+/**
+ * Creates a new instance of DominarTag.
+ * @param {string} tagName The tag name for the new DominarTag instance.
+ * @returns {DominarTag} A new instance of DominarTag.
+ */
+function tag(tagName: string): DominarTag {
     return new DominarTag(tagName);
 }
 
@@ -111,8 +116,8 @@ class DominarTagList {
  * @param tags An array of tags to include in the DominarTagList.
  * @returns A new instance of DominarTagList.
  */
-function TagList(...tags: (string | number | DominarTag)[]): DominarTagList {
+function tagList(...tags: (string | number | DominarTag)[]): DominarTagList {
     return new DominarTagList(tags);
 }
 
-export { DominarTag, Tag, DominarTagList, TagList };
+export { DominarTag, tag, DominarTagList, tagList };

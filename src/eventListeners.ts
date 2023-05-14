@@ -1,4 +1,4 @@
-import { DominarEventListenersObject } from "./types";
+import { DominarEventListeners } from "./types";
 /**
  * Assigns the specified event listeners to an HTML element.
  *
@@ -8,7 +8,7 @@ import { DominarEventListenersObject } from "./types";
  */
 export function assignEventListeners(
     element: HTMLElement,
-    eventListeners: DominarEventListenersObject
+    eventListeners: DominarEventListeners
 ): HTMLElement {
     Object.entries(eventListeners).forEach(([type, listener]) => {
         element.addEventListener(type, listener as (ev: Event) => void);

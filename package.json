@@ -1,12 +1,12 @@
 {
   "name": "@patelka2211/dominar",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Dominar is a powerful library designed to make it easy for developers to manipulate the Document Object Model (DOM) and create dynamic HTML content. Dominar empowers you to take control of your web development projects like a pro. Unleash the power to dominate the DOM with Dominar.",
   "main": "index.js",
   "module": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "build": "rm -rf ./lib/ && tsc -p tsconfig.json && rollup -c && terser ./Dominar.iife.js -c -m -o ./Dominar.iife.js && rm -rf ./lib/",
+    "build": "rm -rf ./lib/ && tsc -p tsconfig.json && rollup -c && terser ./Dominar.iife.js -c -m -o ./Dominar.iife.js",
     "prepare": "npm run build"
   },
   "files": [

@@ -99,7 +99,7 @@ var DominarTag = /** @class */ (function () {
     /**
      * Adds event listeners to the DOM element.
      *
-     * @param {DominarEventListenersObject} eventListeners An object containing the event listeners to add.
+     * @param {DominarEventListeners} eventListeners An object containing the event listeners to add.
      * @returns {DominarTag} The current DominarTag instance, for chaining.
      */
     DominarTag.prototype.addEventListeners = function (eventListeners) {
@@ -111,7 +111,12 @@ var DominarTag = /** @class */ (function () {
     };
     return DominarTag;
 }());
-function Tag(tagName) {
+/**
+ * Creates a new instance of DominarTag.
+ * @param {string} tagName The tag name for the new DominarTag instance.
+ * @returns {DominarTag} A new instance of DominarTag.
+ */
+function tag(tagName) {
     return new DominarTag(tagName);
 }
 /**
@@ -141,7 +146,7 @@ var DominarTagList = /** @class */ (function () {
  * @param tags An array of tags to include in the DominarTagList.
  * @returns A new instance of DominarTagList.
  */
-function TagList() {
+function tagList() {
     var tags = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         tags[_i] = arguments[_i];
@@ -271,7 +276,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var VERSION = "1.0.2";
+var VERSION = "1.1.0";
 function getLatestVersion(packageName) {
     return __awaiter(this, void 0, void 0, function () {
         var response, latest_version;
@@ -296,7 +301,7 @@ function getLatestVersion(packageName) {
 }
 getLatestVersion("@patelka2211/dominar").then(function (latest_version) {
     if (latest_version !== undefined && VERSION < latest_version)
-        console.warn("You are using Dominar v".concat(VERSION, ".\n\nDominar v").concat(latest_version, " is released. Visit https://patelka2211.github.io/dominar/ and follow provided instructions to upgrade to the new version."));
+        console.warn("You are using Dominar \"v".concat(VERSION, "\".\n\nDominar \"v").concat(latest_version, "\" is available. Visit https://patelka2211.github.io/dominar/ and follow provided instructions to upgrade to the latest version."));
 });
 
-export { Tag, TagList, assignEventListeners, render, setAttributes };
+export { assignEventListeners, render, setAttributes, tag, tagList };
