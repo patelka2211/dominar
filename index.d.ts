@@ -51,8 +51,8 @@ declare class DominarTag {
  * @param {string} tagName The tag name for the new DominarTag instance.
  * @returns {DominarTag} A new instance of DominarTag.
  */
-declare function tag<K extends keyof HTMLElementTagNameMap>(tagName: K): DominarTag;
-declare function tag(tagName: string): DominarTag;
+declare function tag<K extends keyof HTMLElementTagNameMap>(tagName: K): DominarTag | null;
+declare function tag(tagName: string): DominarTag | null;
 /**
  * Represents a list of rendered HTML tags.
  */
@@ -62,14 +62,14 @@ declare class DominarTagList {
      * Creates a new instance of DominarTagList.
      * @param {(string | number | DominarTag)[]} tags The list of tags to render.
      */
-    constructor(tags: (string | number | DominarTag)[]);
+    constructor(tags: (string | number | DominarTag | null)[]);
 }
 /**
  * Returns a new instance of DominarTagList that contains the given tags.
  * @param tags An array of tags to include in the DominarTagList.
  * @returns A new instance of DominarTagList.
  */
-declare function tagList(...tags: (string | number | DominarTag)[]): DominarTagList;
+declare function tagList(...tags: (string | number | DominarTag | null)[]): DominarTagList | null;
 
 /**
  * Renders a DOM element or a list of elements to a specified HTML element.
@@ -82,7 +82,7 @@ declare function tagList(...tags: (string | number | DominarTag)[]): DominarTagL
  * @returns {Promise<void>} A Promise that resolves when the rendering is complete.
  * @throws {Error} If the root parameter is null or undefined.
  */
-declare function render(root: HTMLElement, DominarObject: string | number | DominarTag | DominarTagList, options?: RenderOptions): Promise<void>;
+declare function render(root: HTMLElement, DominarObject: string | number | DominarTag | DominarTagList | null, options?: RenderOptions): Promise<void>;
 
 /**
  * Sets the attributes of an HTML element based on the provided object.

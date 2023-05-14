@@ -13,12 +13,13 @@ import { RenderOptions } from "./types";
  */
 export async function render(
     root: HTMLElement,
-    DominarObject: string | number | DominarTag | DominarTagList,
+    DominarObject: string | number | DominarTag | DominarTagList | null,
     options: RenderOptions = {
         clearBeforeRender: true,
         insertType: "append",
     }
 ): Promise<void> {
+    if (DominarObject === null) return;
     if (root === undefined)
         throw Error(`Parameter "root" can't be null, it must be HTML element.`);
     if (options.clearBeforeRender === undefined)
@@ -31,9 +32,9 @@ export async function render(
         root[options.insertType](DominarObject);
     else if (typeof DominarObject === "number")
         root[options.insertType](DominarObject.toString());
-    else if (DominarObject instanceof DominarTag) {
+    else if (DominarObject instanceof DominarTag)
         root[options.insertType](DominarObject.renderedTag);
-    } else if (DominarObject instanceof DominarTagList) {
+    else if (DominarObject instanceof DominarTagList) {
         let currentInnerHTML;
         if (options.insertType === "prepend")
             [currentInnerHTML, root.innerHTML] = [root.innerHTML, ""];

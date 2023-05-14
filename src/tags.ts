@@ -80,14 +80,11 @@ class DominarTag {
  * @param {string} tagName The tag name for the new DominarTag instance.
  * @returns {DominarTag} A new instance of DominarTag.
  */
-function tag<K extends keyof HTMLElementTagNameMap>(tagName: K): DominarTag;
-function tag(tagName: string): DominarTag;
-/**
- * Creates a new instance of DominarTag.
- * @param {string} tagName The tag name for the new DominarTag instance.
- * @returns {DominarTag} A new instance of DominarTag.
- */
-function tag(tagName: string): DominarTag {
+function tag<K extends keyof HTMLElementTagNameMap>(
+    tagName: K
+): DominarTag | null;
+function tag(tagName: string): DominarTag | null;
+function tag(tagName: string): DominarTag | null {
     return new DominarTag(tagName);
 }
 
@@ -100,13 +97,14 @@ class DominarTagList {
      * Creates a new instance of DominarTagList.
      * @param {(string | number | DominarTag)[]} tags The list of tags to render.
      */
-    constructor(tags: (string | number | DominarTag)[]) {
+    constructor(tags: (string | number | DominarTag | null)[]) {
         tags.forEach((tag) => {
-            if (typeof tag === "string") this.renderedTagList.push(tag);
-            else if (typeof tag === "number")
-                this.renderedTagList.push(tag.toString());
-            else if (tag instanceof DominarTag)
-                this.renderedTagList.push(tag.renderedTag);
+            if (tag !== null)
+                if (typeof tag === "string") this.renderedTagList.push(tag);
+                else if (typeof tag === "number")
+                    this.renderedTagList.push(tag.toString());
+                else if (tag instanceof DominarTag)
+                    this.renderedTagList.push(tag.renderedTag);
         });
     }
 }
@@ -116,7 +114,9 @@ class DominarTagList {
  * @param tags An array of tags to include in the DominarTagList.
  * @returns A new instance of DominarTagList.
  */
-function tagList(...tags: (string | number | DominarTag)[]): DominarTagList {
+function tagList(
+    ...tags: (string | number | DominarTag | null)[]
+): DominarTagList | null {
     return new DominarTagList(tags);
 }
 
