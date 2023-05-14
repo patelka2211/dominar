@@ -1,8 +1,8 @@
-export { Tag, TagList } from "./tags";
+export { tag, tagList } from "./tags";
 export { render } from "./render";
 export { setAttributes } from "./attributes";
 export { assignEventListeners } from "./eventListeners";
-const VERSION = "1.0.2";
+const VERSION = "1.1.0";
 
 async function getLatestVersion(packageName: string) {
     try {
@@ -20,6 +20,6 @@ async function getLatestVersion(packageName: string) {
 getLatestVersion("@patelka2211/dominar").then((latest_version) => {
     if (latest_version !== undefined && VERSION < latest_version)
         console.warn(
-            `You are using Dominar v${VERSION}.\n\nDominar v${latest_version} is released. Visit https://patelka2211.github.io/dominar/ and follow provided instructions to upgrade to the new version.`
+            `You are using Dominar "v${VERSION}".\n\nDominar "v${latest_version}" is available. Visit https://patelka2211.github.io/dominar/ and follow provided instructions to upgrade to the latest version.`
         );
 });
