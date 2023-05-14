@@ -22,7 +22,7 @@ npm i @patelka2211/dominar
 Alternatively, you can include Dominar in your website using a `<script>` tag:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.1/Dominar.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.2/Dominar.iife.js"></script>
 ```
 
 ## Examples
@@ -56,9 +56,9 @@ let tagObject = tag("div")
     .setAttributes({
         id: "div-1",
     })
-    .addChildren(tagList);
+    .addChildren(tagListObject);
 
-render(document.body, tag, {
+render(document.body, tagObject, {
     clearBeforeRender: false,
     insertType: "prepend",
 }).then(() => {
@@ -98,9 +98,9 @@ assignEventListeners(document.body, {
         .setAttributes({
             id: "div-1",
         })
-        .addChildren(tagList);
+        .addChildren(tagListObject);
 
-    Dominar.render(document.body, tag, {
+    Dominar.render(document.body, tagObject, {
         clearBeforeRender: false,
         insertType: "prepend",
     }).then(() => {

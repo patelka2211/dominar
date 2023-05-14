@@ -2,7 +2,7 @@ export { tag, tagList } from "./tags";
 export { render } from "./render";
 export { setAttributes } from "./attributes";
 export { assignEventListeners } from "./eventListeners";
-const VERSION = "1.1.1";
+const VERSION = "1.1.2";
 
 async function getLatestVersion(packageName: string) {
     try {
