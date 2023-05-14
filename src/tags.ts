@@ -80,11 +80,9 @@ class DominarTag {
  * @param {string} tagName The tag name for the new DominarTag instance.
  * @returns {DominarTag} A new instance of DominarTag.
  */
-function tag<K extends keyof HTMLElementTagNameMap>(
-    tagName: K
-): DominarTag | null;
-function tag(tagName: string): DominarTag | null;
-function tag(tagName: string): DominarTag | null {
+function tag<K extends keyof HTMLElementTagNameMap>(tagName: K): DominarTag;
+function tag(tagName: string): DominarTag;
+function tag(tagName: string): DominarTag {
     return new DominarTag(tagName);
 }
 
@@ -97,7 +95,7 @@ class DominarTagList {
      * Creates a new instance of DominarTagList.
      * @param {(string | number | DominarTag)[]} tags The list of tags to render.
      */
-    constructor(tags: (string | number | DominarTag | null)[]) {
+    constructor(tags: (string | number | DominarTag)[]) {
         tags.forEach((tag) => {
             if (tag !== null)
                 if (typeof tag === "string") this.renderedTagList.push(tag);
@@ -114,9 +112,7 @@ class DominarTagList {
  * @param tags An array of tags to include in the DominarTagList.
  * @returns A new instance of DominarTagList.
  */
-function tagList(
-    ...tags: (string | number | DominarTag | null)[]
-): DominarTagList | null {
+function tagList(...tags: (string | number | DominarTag)[]): DominarTagList {
     return new DominarTagList(tags);
 }
 

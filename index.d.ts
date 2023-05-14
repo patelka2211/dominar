@@ -7,6 +7,7 @@ type DominarEventListeners = {
 type RenderOptions = {
     clearBeforeRender?: boolean;
     insertType?: "prepend" | "append";
+    nullifyDominarObject?: boolean;
 };
 
 /**
@@ -51,8 +52,8 @@ declare class DominarTag {
  * @param {string} tagName The tag name for the new DominarTag instance.
  * @returns {DominarTag} A new instance of DominarTag.
  */
-declare function tag<K extends keyof HTMLElementTagNameMap>(tagName: K): DominarTag | null;
-declare function tag(tagName: string): DominarTag | null;
+declare function tag<K extends keyof HTMLElementTagNameMap>(tagName: K): DominarTag;
+declare function tag(tagName: string): DominarTag;
 /**
  * Represents a list of rendered HTML tags.
  */
@@ -62,14 +63,14 @@ declare class DominarTagList {
      * Creates a new instance of DominarTagList.
      * @param {(string | number | DominarTag)[]} tags The list of tags to render.
      */
-    constructor(tags: (string | number | DominarTag | null)[]);
+    constructor(tags: (string | number | DominarTag)[]);
 }
 /**
  * Returns a new instance of DominarTagList that contains the given tags.
  * @param tags An array of tags to include in the DominarTagList.
  * @returns A new instance of DominarTagList.
  */
-declare function tagList(...tags: (string | number | DominarTag | null)[]): DominarTagList | null;
+declare function tagList(...tags: (string | number | DominarTag)[]): DominarTagList;
 
 /**
  * Renders a DOM element or a list of elements to a specified HTML element.
@@ -79,10 +80,11 @@ declare function tagList(...tags: (string | number | DominarTag | null)[]): Domi
  * @param {Object} options An object containing rendering options.
  * @param {boolean} [options.clearBeforeRender=true] Whether to clear the root element before rendering.
  * @param {string} [options.insertType="append"] Whether to append or prepend the DOM element(s) to the root element.
+ * @param {string} [options.nullifyDominarObject=true] Whether to nullify the DominarObject or not.
  * @returns {Promise<void>} A Promise that resolves when the rendering is complete.
  * @throws {Error} If the root parameter is null or undefined.
  */
-declare function render(root: HTMLElement, DominarObject: string | number | DominarTag | DominarTagList | null, options?: RenderOptions): Promise<void>;
+declare function render(root: HTMLElement, DominarObject: string | number | DominarTag | DominarTagList | null, options: RenderOptions): Promise<void>;
 
 /**
  * Sets the attributes of an HTML element based on the provided object.

@@ -8,25 +8,25 @@ import { RenderOptions } from "./types";
  * @param {Object} options An object containing rendering options.
  * @param {boolean} [options.clearBeforeRender=true] Whether to clear the root element before rendering.
  * @param {string} [options.insertType="append"] Whether to append or prepend the DOM element(s) to the root element.
+ * @param {string} [options.nullifyDominarObject=true] Whether to nullify the DominarObject or not.
  * @returns {Promise<void>} A Promise that resolves when the rendering is complete.
  * @throws {Error} If the root parameter is null or undefined.
  */
 export async function render(
     root: HTMLElement,
     DominarObject: string | number | DominarTag | DominarTagList | null,
-    options: RenderOptions = {
-        clearBeforeRender: true,
-        insertType: "append",
-    }
+    options: RenderOptions
 ): Promise<void> {
     if (DominarObject === null) return;
     if (root === undefined)
         throw Error(`Parameter "root" can't be null, it must be HTML element.`);
+
     if (options.clearBeforeRender === undefined)
         options.clearBeforeRender = true;
-    if (options.insertType === undefined) options.insertType = "append";
-    if (options.clearBeforeRender)
-        [root.innerHTML, options.insertType] = ["", "append"];
+    if (options.clearBeforeRender === true) root.innerHTML = "";
+
+    if (options.insertType === undefined || options.clearBeforeRender === true)
+        options.insertType = "append";
 
     if (typeof DominarObject === "string")
         root[options.insertType](DominarObject);
@@ -44,4 +44,8 @@ export async function render(
         if (options.insertType === "prepend" && currentInnerHTML !== undefined)
             root.innerHTML += currentInnerHTML;
     }
+
+    if (options.nullifyDominarObject === undefined)
+        options.nullifyDominarObject = true;
+    if (options.nullifyDominarObject === true) DominarObject = null;
 }

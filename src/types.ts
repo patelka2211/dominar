@@ -9,4 +9,5 @@ export type DominarEventListeners = {
 export type RenderOptions = {
     clearBeforeRender?: boolean;
     insertType?: "prepend" | "append";
+    nullifyDominarObject?: boolean;
 };
