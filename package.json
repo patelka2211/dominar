@@ -1,14 +1,12 @@
 {
   "name": "@patelka2211/dominar",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Dominar is a powerful library designed to make it easy for developers to manipulate the Document Object Model (DOM) and create dynamic HTML content. Dominar empowers you to take control of your web development projects like a pro. Unleash the power to dominate the DOM with Dominar.",
   "main": "index.js",
   "module": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "minify:iife": "terser ./Dominar.iife.js -c -m -o ./Dominar.iife.js",
-    "minify:esm": "terser ./index.js -c -m -o ./index.js",
-    "build": "rm -rf ./lib/ && tsc -p tsconfig.json && rollup -c && npm run minify:iife && npm run minify:esm",
+    "build": "rm -rf ./lib/ && tsc -p tsconfig.json && rollup -c && terser ./Dominar.iife.js -c -m -o ./Dominar.iife.js",
     "prepare": "npm run build"
   },
   "files": [
@@ -42,7 +40,7 @@
   "bugs": {
     "url": "https://github.com/patelka2211/dominar/issues"
   },
-  "homepage": "https://github.com/patelka2211/dominar#readme",
+  "homepage": "https://patelka2211.github.io/dominar",
   "devDependencies": {
     "rollup": "^3.21.6",
     "rollup-plugin-dts": "^5.3.0",

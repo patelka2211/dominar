@@ -1,1 +1,305 @@
-function setAttributes(e,t){for(var n in t)if(Object.prototype.hasOwnProperty.call(t,n)){var r=t[n];"string"==typeof r?(""===r&&(r=" "),e.setAttribute(n,r)):"number"==typeof r?e.setAttribute(n,r.toString()):!0===r&&e.setAttribute(n,"")}return e}function assignEventListeners(e,t){return Object.entries(t).forEach((function(t){var n=t[0],r=t[1];e.addEventListener(n,r)})),e}var DominarTag=function(){function e(e){this.attributesSet=!1,this.childrenSet=!1,this.eventListenersSet=!1,this.renderedTag=document.createElement(e)}return e.prototype.setAttributes=function(e){return this.attributesSet||(setAttributes(this.renderedTag,e),this.attributesSet=!0),this},e.prototype.addChildren=function(){for(var t=this,n=[],r=0;r<arguments.length;r++)n[r]=arguments[r];return this.childrenSet||(n.forEach((function(n){"string"==typeof n?t.renderedTag.append(n):"number"==typeof n?t.renderedTag.append(n.toString()):n instanceof e?t.renderedTag.append(n.renderedTag):n instanceof DominarTagList&&n.renderedTagList.forEach((function(e){t.renderedTag.append(e)}))})),this.childrenSet=!0),this},e.prototype.addEventListeners=function(e){return this.eventListenersSet||(assignEventListeners(this.renderedTag,e),this.eventListenersSet=!0),this},e}();function tag(e){return new DominarTag(e)}var DominarTagList=function(e){var t=this;this.renderedTagList=[],e.forEach((function(e){null!==e&&("string"==typeof e?t.renderedTagList.push(e):"number"==typeof e?t.renderedTagList.push(e.toString()):e instanceof DominarTag&&t.renderedTagList.push(e.renderedTag))}))};function tagList(){for(var e=[],t=0;t<arguments.length;t++)e[t]=arguments[t];return new DominarTagList(e)}var __awaiter$1=function(e,t,n,r){return new(n||(n=Promise))((function(i,o){function a(e){try{u(r.next(e))}catch(e){o(e)}}function s(e){try{u(r.throw(e))}catch(e){o(e)}}function u(e){var t;e.done?i(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(a,s)}u((r=r.apply(e,t||[])).next())}))},__generator$1=function(e,t){var n,r,i,o,a={label:0,sent:function(){if(1&i[0])throw i[1];return i[1]},trys:[],ops:[]};return o={next:s(0),throw:s(1),return:s(2)},"function"==typeof Symbol&&(o[Symbol.iterator]=function(){return this}),o;function s(s){return function(u){return function(s){if(n)throw new TypeError("Generator is already executing.");for(;o&&(o=0,s[0]&&(a=0)),a;)try{if(n=1,r&&(i=2&s[0]?r.return:s[0]?r.throw||((i=r.return)&&i.call(r),0):r.next)&&!(i=i.call(r,s[1])).done)return i;switch(r=0,i&&(s=[2&s[0],i.value]),s[0]){case 0:case 1:i=s;break;case 4:return a.label++,{value:s[1],done:!1};case 5:a.label++,r=s[1],s=[0];continue;case 7:s=a.ops.pop(),a.trys.pop();continue;default:if(!(i=a.trys,(i=i.length>0&&i[i.length-1])||6!==s[0]&&2!==s[0])){a=0;continue}if(3===s[0]&&(!i||s[1]>i[0]&&s[1]<i[3])){a.label=s[1];break}if(6===s[0]&&a.label<i[1]){a.label=i[1],i=s;break}if(i&&a.label<i[2]){a.label=i[2],a.ops.push(s);break}i[2]&&a.ops.pop(),a.trys.pop();continue}s=t.call(e,a)}catch(e){s=[6,e],r=0}finally{n=i=0}if(5&s[0])throw s[1];return{value:s[0]?s[1]:void 0,done:!0}}([s,u])}}};function render(e,t,n){return __awaiter$1(this,void 0,void 0,(function(){var r,i;return __generator$1(this,(function(o){if(null===t)return[2];if(void 0===e)throw Error('Parameter "root" can\'t be null, it must be HTML element.');return void 0===n.clearBeforeRender&&(n.clearBeforeRender=!0),!0===n.clearBeforeRender&&(e.innerHTML=""),void 0!==n.insertType&&!0!==n.clearBeforeRender||(n.insertType="append"),"string"==typeof t?e[n.insertType](t):"number"==typeof t?e[n.insertType](t.toString()):t instanceof DominarTag?e[n.insertType](t.renderedTag):t instanceof DominarTagList&&(r=void 0,"prepend"===n.insertType&&(i=[e.innerHTML,""],r=i[0],e.innerHTML=i[1]),t.renderedTagList.forEach((function(t){e.append(t)})),"prepend"===n.insertType&&void 0!==r&&(e.innerHTML+=r)),void 0===n.nullifyDominarObject&&(n.nullifyDominarObject=!0),!0===n.nullifyDominarObject&&(t=null),[2]}))}))}var __awaiter=function(e,t,n,r){return new(n||(n=Promise))((function(i,o){function a(e){try{u(r.next(e))}catch(e){o(e)}}function s(e){try{u(r.throw(e))}catch(e){o(e)}}function u(e){var t;e.done?i(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(a,s)}u((r=r.apply(e,t||[])).next())}))},__generator=function(e,t){var n,r,i,o,a={label:0,sent:function(){if(1&i[0])throw i[1];return i[1]},trys:[],ops:[]};return o={next:s(0),throw:s(1),return:s(2)},"function"==typeof Symbol&&(o[Symbol.iterator]=function(){return this}),o;function s(s){return function(u){return function(s){if(n)throw new TypeError("Generator is already executing.");for(;o&&(o=0,s[0]&&(a=0)),a;)try{if(n=1,r&&(i=2&s[0]?r.return:s[0]?r.throw||((i=r.return)&&i.call(r),0):r.next)&&!(i=i.call(r,s[1])).done)return i;switch(r=0,i&&(s=[2&s[0],i.value]),s[0]){case 0:case 1:i=s;break;case 4:return a.label++,{value:s[1],done:!1};case 5:a.label++,r=s[1],s=[0];continue;case 7:s=a.ops.pop(),a.trys.pop();continue;default:if(!(i=a.trys,(i=i.length>0&&i[i.length-1])||6!==s[0]&&2!==s[0])){a=0;continue}if(3===s[0]&&(!i||s[1]>i[0]&&s[1]<i[3])){a.label=s[1];break}if(6===s[0]&&a.label<i[1]){a.label=i[1],i=s;break}if(i&&a.label<i[2]){a.label=i[2],a.ops.push(s);break}i[2]&&a.ops.pop(),a.trys.pop();continue}s=t.call(e,a)}catch(e){s=[6,e],r=0}finally{n=i=0}if(5&s[0])throw s[1];return{value:s[0]?s[1]:void 0,done:!0}}([s,u])}}},VERSION="1.1.4";function getLatestVersion(e){return __awaiter(this,void 0,void 0,(function(){return __generator(this,(function(t){switch(t.label){case 0:return t.trys.push([0,3,,4]),[4,fetch("https://cdn.jsdelivr.net/npm/".concat(e,"/package.json"))];case 1:return[4,t.sent().json()];case 2:return[2,t.sent().version];case 3:return t.sent(),[2,void 0];case 4:return[2]}}))}))}getLatestVersion("@patelka2211/dominar").then((function(e){void 0!==e&&VERSION<e&&console.warn('You are using Dominar "v'.concat(VERSION,'".\n\nDominar "v').concat(e,'" is available. Visit https://patelka2211.github.io/dominar/ and follow provided instructions to upgrade to the latest version.'))}));export{assignEventListeners,render,setAttributes,tag,tagList};
+/**
+ * Sets the attributes of an HTML element based on the provided object.
+ *
+ * @param {HTMLElement} element The HTML element to set the attributes on.
+ * @param {Object} attributes An object containing the attribute names and values to set.
+ * @returns {HTMLElement} The same HTML element with the updated attributes.
+ */
+function setAttributes(element, attributes) {
+    for (var attributeName in attributes) {
+        if (Object.prototype.hasOwnProperty.call(attributes, attributeName)) {
+            var attributeValue = attributes[attributeName];
+            if (typeof attributeValue === "string") {
+                if (attributeValue === "")
+                    attributeValue = " ";
+                element.setAttribute(attributeName, attributeValue);
+            }
+            else if (typeof attributeValue === "number")
+                element.setAttribute(attributeName, attributeValue.toString());
+            else if (attributeValue === true)
+                element.setAttribute(attributeName, "");
+        }
+    }
+    return element;
+}
+
+/**
+ * Assigns the specified event listeners to an HTML element.
+ *
+ * @param {HTMLElement} element The HTML element to assign event listeners to.
+ * @param {Object.<string, function>} eventListeners An object containing event listener functions keyed by event type.
+ * @returns {HTMLElement} The same HTML element with the added event listeners.
+ */
+function assignEventListeners(element, eventListeners) {
+    Object.entries(eventListeners).forEach(function (_a) {
+        var type = _a[0], listener = _a[1];
+        element.addEventListener(type, listener);
+    });
+    return element;
+}
+
+/**
+ * A class representing a DOM element with methods for setting attributes, adding children,
+ * and adding event listeners.
+ */
+var DominarTag = /** @class */ (function () {
+    /**
+     * Constructs a new instance of the DominarTag class with the specified tag name.
+     *
+     * @param {string} tagName The name of the HTML tag to create.
+     */
+    function DominarTag(tagName) {
+        this.attributesSet = false;
+        this.childrenSet = false;
+        this.eventListenersSet = false;
+        this.renderedTag = document.createElement(tagName);
+    }
+    /**
+     * Sets the attributes of the DOM element.
+     *
+     * @param {DominarTagAttributes} attributes An object containing the attributes to set.
+     * @returns {DominarTag} The current DominarTag instance, for chaining.
+     */
+    DominarTag.prototype.setAttributes = function (attributes) {
+        if (this.attributesSet)
+            return this;
+        setAttributes(this.renderedTag, attributes);
+        this.attributesSet = true;
+        return this;
+    };
+    /**
+     * Adds children to the DOM element.
+     *
+     * @param {...(string | number | DominarTag | DominarTagList)} children The children to add.
+     * @returns {DominarTag} The current DominarTag instance, for chaining.
+     */
+    DominarTag.prototype.addChildren = function () {
+        var _this = this;
+        var children = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            children[_i] = arguments[_i];
+        }
+        if (this.childrenSet)
+            return this;
+        children.forEach(function (child) {
+            if (typeof child === "string")
+                _this.renderedTag.append(child);
+            else if (typeof child === "number")
+                _this.renderedTag.append(child.toString());
+            else if (child instanceof DominarTag)
+                _this.renderedTag.append(child.renderedTag);
+            else if (child instanceof DominarTagList)
+                child.renderedTagList.forEach(function (renderedTag) {
+                    _this.renderedTag.append(renderedTag);
+                });
+        });
+        this.childrenSet = true;
+        return this;
+    };
+    /**
+     * Adds event listeners to the DOM element.
+     *
+     * @param {DominarEventListeners} eventListeners An object containing the event listeners to add.
+     * @returns {DominarTag} The current DominarTag instance, for chaining.
+     */
+    DominarTag.prototype.addEventListeners = function (eventListeners) {
+        if (this.eventListenersSet)
+            return this;
+        assignEventListeners(this.renderedTag, eventListeners);
+        this.eventListenersSet = true;
+        return this;
+    };
+    return DominarTag;
+}());
+/**
+ * Creates a new instance of DominarTag.
+ * @param {string} tagName The tag name for the new DominarTag instance.
+ * @returns {DominarTag} A new instance of DominarTag.
+ */
+function tag(tagName) {
+    return new DominarTag(tagName);
+}
+/**
+ * Represents a list of rendered HTML tags.
+ */
+var DominarTagList = /** @class */ (function () {
+    /**
+     * Creates a new instance of DominarTagList.
+     * @param {(string | number | DominarTag)[]} tags The list of tags to render.
+     */
+    function DominarTagList(tags) {
+        var _this = this;
+        this.renderedTagList = [];
+        tags.forEach(function (tag) {
+            if (tag !== null)
+                if (typeof tag === "string")
+                    _this.renderedTagList.push(tag);
+                else if (typeof tag === "number")
+                    _this.renderedTagList.push(tag.toString());
+                else if (tag instanceof DominarTag)
+                    _this.renderedTagList.push(tag.renderedTag);
+        });
+    }
+    return DominarTagList;
+}());
+/**
+ * Returns a new instance of DominarTagList that contains the given tags.
+ * @param tags An array of tags to include in the DominarTagList.
+ * @returns A new instance of DominarTagList.
+ */
+function tagList() {
+    var tags = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        tags[_i] = arguments[_i];
+    }
+    return new DominarTagList(tags);
+}
+
+var __awaiter$1 = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator$1 = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+/**
+ * Renders a DOM element or a list of elements to a specified HTML element.
+ *
+ * @param {HTMLElement} root The HTML element to render the DOM element(s) to.
+ * @param {string | number | DominarTag | DominarTagList} DominarObject The DOM element(s) to render.
+ * @param {Object} options An object containing rendering options.
+ * @param {boolean} [options.clearBeforeRender=true] Whether to clear the root element before rendering.
+ * @param {string} [options.insertType="append"] Whether to append or prepend the DOM element(s) to the root element.
+ * @returns {Promise<void>} A Promise that resolves when the rendering is complete.
+ * @throws {Error} If the root parameter is null or undefined.
+ */
+function render(root, DominarObject, options) {
+    return __awaiter$1(this, void 0, void 0, function () {
+        var currentInnerHTML;
+        var _a;
+        return __generator$1(this, function (_b) {
+            if (DominarObject === null)
+                return [2 /*return*/];
+            if (root === undefined)
+                throw Error("Parameter \"root\" can't be null, it must be HTML element.");
+            if (options.clearBeforeRender === undefined)
+                options.clearBeforeRender = true;
+            if (options.clearBeforeRender === true)
+                root.innerHTML = "";
+            if (options.insertType === undefined || options.clearBeforeRender === true)
+                options.insertType = "append";
+            if (typeof DominarObject === "string")
+                root[options.insertType](DominarObject);
+            else if (typeof DominarObject === "number")
+                root[options.insertType](DominarObject.toString());
+            else if (DominarObject instanceof DominarTag)
+                root[options.insertType](DominarObject.renderedTag);
+            else if (DominarObject instanceof DominarTagList) {
+                currentInnerHTML = void 0;
+                if (options.insertType === "prepend")
+                    _a = [root.innerHTML, ""], currentInnerHTML = _a[0], root.innerHTML = _a[1];
+                DominarObject.renderedTagList.forEach(function (tag) {
+                    root.append(tag);
+                });
+                if (options.insertType === "prepend" && currentInnerHTML !== undefined)
+                    root.innerHTML += currentInnerHTML;
+            }
+            return [2 /*return*/];
+        });
+    });
+}
+
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var VERSION = "1.1.5";
+function getLatestVersion(packageName) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, latest_version;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch("https://cdn.jsdelivr.net/npm/".concat(packageName, "/package.json"))];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    latest_version = (_a.sent()).version;
+                    return [2 /*return*/, latest_version];
+                case 3:
+                    _a.sent();
+                    return [2 /*return*/, undefined];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+getLatestVersion("@patelka2211/dominar").then(function (latest_version) {
+    if (latest_version !== undefined && VERSION < latest_version)
+        console.warn("You are using Dominar \"v".concat(VERSION, "\".\n\nDominar \"v").concat(latest_version, "\" is available. Visit https://patelka2211.github.io/dominar/ and follow provided instructions to upgrade to the latest version."));
+});
+
+export { assignEventListeners, render, setAttributes, tag, tagList };

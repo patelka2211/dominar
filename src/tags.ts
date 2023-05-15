@@ -82,6 +82,11 @@ class DominarTag {
  */
 function tag<K extends keyof HTMLElementTagNameMap>(tagName: K): DominarTag;
 function tag(tagName: string): DominarTag;
+/**
+ * Creates a new instance of DominarTag.
+ * @param {string} tagName The tag name for the new DominarTag instance.
+ * @returns {DominarTag} A new instance of DominarTag.
+ */
 function tag(tagName: string): DominarTag {
     return new DominarTag(tagName);
 }

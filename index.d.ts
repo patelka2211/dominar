@@ -7,7 +7,6 @@ type DominarEventListeners = {
 type RenderOptions = {
     clearBeforeRender?: boolean;
     insertType?: "prepend" | "append";
-    nullifyDominarObject?: boolean;
 };
 
 /**
@@ -80,7 +79,6 @@ declare function tagList(...tags: (string | number | DominarTag)[]): DominarTagL
  * @param {Object} options An object containing rendering options.
  * @param {boolean} [options.clearBeforeRender=true] Whether to clear the root element before rendering.
  * @param {string} [options.insertType="append"] Whether to append or prepend the DOM element(s) to the root element.
- * @param {string} [options.nullifyDominarObject=true] Whether to nullify the DominarObject or not.
  * @returns {Promise<void>} A Promise that resolves when the rendering is complete.
  * @throws {Error} If the root parameter is null or undefined.
  */
