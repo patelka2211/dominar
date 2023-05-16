@@ -37,6 +37,20 @@ function assignEventListeners(element, eventListeners) {
     });
     return element;
 }
+/**
+ * Removes the specified event listeners from an HTML element.
+ *
+ * @param {HTMLElement} element The HTML element to remove event listeners from.
+ * @param {Object.<string, function>} eventListeners An object containing event listener functions keyed by event type.
+ * @returns {HTMLElement} The same HTML element with the added event listeners.
+ */
+function removeEventListeners(element, eventListeners) {
+    Object.entries(eventListeners).forEach(function (_a) {
+        var type = _a[0], listener = _a[1];
+        element.removeEventListener(type, listener);
+    });
+    return element;
+}
 
 /**
  * A class representing a DOM element with methods for setting attributes, adding children,
@@ -274,7 +288,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var VERSION = "1.1.5";
+var VERSION = "1.1.6";
 function getLatestVersion(packageName) {
     return __awaiter(this, void 0, void 0, function () {
         var response, latest_version;
@@ -302,4 +316,4 @@ getLatestVersion("@patelka2211/dominar").then(function (latest_version) {
         console.warn("You are using Dominar \"v".concat(VERSION, "\".\n\nDominar \"v").concat(latest_version, "\" is available. Visit https://patelka2211.github.io/dominar/ and follow provided instructions to upgrade to the latest version."));
 });
 
-export { assignEventListeners, render, setAttributes, tag, tagList };
+export { assignEventListeners, removeEventListeners, render, setAttributes, tag, tagList };

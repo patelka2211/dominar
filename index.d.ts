@@ -101,5 +101,13 @@ declare function setAttributes(element: HTMLElement, attributes: DominarTagAttri
  * @returns {HTMLElement} The same HTML element with the added event listeners.
  */
 declare function assignEventListeners(element: HTMLElement, eventListeners: DominarEventListeners): HTMLElement;
+/**
+ * Removes the specified event listeners from an HTML element.
+ *
+ * @param {HTMLElement} element The HTML element to remove event listeners from.
+ * @param {Object.<string, function>} eventListeners An object containing event listener functions keyed by event type.
+ * @returns {HTMLElement} The same HTML element with the added event listeners.
+ */
+declare function removeEventListeners(element: HTMLElement, eventListeners: DominarEventListeners): HTMLElement;
 
-export { assignEventListeners, render, setAttributes, tag, tagList };
+export { assignEventListeners, removeEventListeners, render, setAttributes, tag, tagList };
