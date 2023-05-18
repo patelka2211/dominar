@@ -1,89 +1,6 @@
 type DominarTagAttributes = {
     [attributeName: string]: string | number | true;
 };
-type DominarEventListeners = {
-    [K in keyof HTMLElementEventMap]?: (ev: HTMLElementEventMap[K]) => void;
-};
-type RenderOptions = {
-    clearBeforeRender?: boolean;
-    insertType?: "prepend" | "append";
-};
-
-/**
- * A class representing a DOM element with methods for setting attributes, adding children,
- * and adding event listeners.
- */
-declare class DominarTag {
-    renderedTag: HTMLElement;
-    private attributesSet;
-    private childrenSet;
-    private eventListenersSet;
-    /**
-     * Constructs a new instance of the DominarTag class with the specified tag name.
-     *
-     * @param {string} tagName The name of the HTML tag to create.
-     */
-    constructor(tagName: string);
-    /**
-     * Sets the attributes of the DOM element.
-     *
-     * @param {DominarTagAttributes} attributes An object containing the attributes to set.
-     * @returns {DominarTag} The current DominarTag instance, for chaining.
-     */
-    setAttributes(attributes: DominarTagAttributes): DominarTag;
-    /**
-     * Adds children to the DOM element.
-     *
-     * @param {...(string | number | DominarTag | DominarTagList)} children The children to add.
-     * @returns {DominarTag} The current DominarTag instance, for chaining.
-     */
-    addChildren(...children: (string | number | DominarTag | DominarTagList)[]): DominarTag;
-    /**
-     * Adds event listeners to the DOM element.
-     *
-     * @param {DominarEventListeners} eventListeners An object containing the event listeners to add.
-     * @returns {DominarTag} The current DominarTag instance, for chaining.
-     */
-    addEventListeners(eventListeners: DominarEventListeners): DominarTag;
-}
-/**
- * Creates a new instance of DominarTag.
- * @param {string} tagName The tag name for the new DominarTag instance.
- * @returns {DominarTag} A new instance of DominarTag.
- */
-declare function tag<K extends keyof HTMLElementTagNameMap>(tagName: K): DominarTag;
-declare function tag(tagName: string): DominarTag;
-/**
- * Represents a list of rendered HTML tags.
- */
-declare class DominarTagList {
-    renderedTagList: (string | HTMLElement)[];
-    /**
-     * Creates a new instance of DominarTagList.
-     * @param {(string | number | DominarTag)[]} tags The list of tags to render.
-     */
-    constructor(tags: (string | number | DominarTag)[]);
-}
-/**
- * Returns a new instance of DominarTagList that contains the given tags.
- * @param tags An array of tags to include in the DominarTagList.
- * @returns A new instance of DominarTagList.
- */
-declare function tagList(...tags: (string | number | DominarTag)[]): DominarTagList;
-
-/**
- * Renders a DOM element or a list of elements to a specified HTML element.
- *
- * @param {HTMLElement} root The HTML element to render the DOM element(s) to.
- * @param {string | number | DominarTag | DominarTagList} DominarObject The DOM element(s) to render.
- * @param {Object} options An object containing rendering options.
- * @param {boolean} [options.clearBeforeRender=true] Whether to clear the root element before rendering.
- * @param {string} [options.insertType="append"] Whether to append or prepend the DOM element(s) to the root element.
- * @returns {Promise<void>} A Promise that resolves when the rendering is complete.
- * @throws {Error} If the root parameter is null or undefined.
- */
-declare function render(root: HTMLElement, DominarObject: string | number | DominarTag | DominarTagList | null, options: RenderOptions): Promise<void>;
-
 /**
  * Sets the attributes of an HTML element based on the provided object.
  *
@@ -93,6 +10,9 @@ declare function render(root: HTMLElement, DominarObject: string | number | Domi
  */
 declare function setAttributes(element: HTMLElement, attributes: DominarTagAttributes): HTMLElement;
 
+type DominarEventListeners = {
+    [K in keyof HTMLElementEventMap]?: (ev: HTMLElementEventMap[K]) => void;
+};
 /**
  * Assigns the specified event listeners to an HTML element.
  *
@@ -109,5 +29,73 @@ declare function assignEventListeners(element: HTMLElement, eventListeners: Domi
  * @returns {HTMLElement} The same HTML element with the added event listeners.
  */
 declare function removeEventListeners(element: HTMLElement, eventListeners: DominarEventListeners): HTMLElement;
+
+type DominarTagChildren = string | number | DominarTag | DominarTagList | HTMLElement;
+type DominarTagData = {
+    attributes?: DominarTagAttributes;
+    children?: DominarTagChildren;
+    eventListeners?: DominarEventListeners;
+};
+/**
+ * Represents a DOM element wrapped in a DominarTag.
+ */
+declare class DominarTag {
+    /**
+     * The rendered DOM element of the tag.
+     * @type {HTMLElement}
+     */
+    renderedTag: HTMLElement;
+    /**
+     * Creates an instance of the DominarTag class.
+     * @param {string} tagName - The name of the tag to create.
+     * @param {DominarTagData} [tagData] - Optional data for initializing the tag.
+     */
+    constructor(tagName: string, tagData?: DominarTagData);
+}
+/** Creates a new DominarTag instance with the specified tag name and optional tag data.
+ *
+ * @param {string} tagName - The name of the tag.
+ * @param {DominarTagData} [tagData] - Optional tag data.
+ * @returns {DominarTag} A new DominarTag instance.
+ */
+declare function tag<K extends keyof HTMLElementTagNameMap>(tagName: K, tagData?: DominarTagData): DominarTag;
+declare function tag(tagName: string, tagData?: DominarTagData): DominarTag;
+/**
+ * Represents a list of rendered HTML tags.
+ */
+declare class DominarTagList {
+    /**
+     * The array of rendered tags, which can be either strings or HTML elements.
+     */
+    renderedTagList: (string | HTMLElement)[];
+    /**
+     * Constructs a new instance of the DominarTagList class.
+     * @param {Array<string | number | DominarTag | HTMLElement>} tags - The initial list of tags.
+     */
+    constructor(tags: (string | number | DominarTag | HTMLElement)[]);
+}
+/**
+ * Returns a new instance of DominarTagList that contains the given tags.
+ * @param tags An array of tags to include in the DominarTagList.
+ * @returns A new instance of DominarTagList.
+ */
+declare function tagList(...tags: (string | number | DominarTag | HTMLElement)[]): DominarTagList;
+
+type RenderOptions = {
+    clearBeforeRender?: boolean;
+    insertType?: "prepend" | "append";
+};
+/**
+ * Renders a DOM element or a list of elements to a specified HTML element.
+ *
+ * @param {HTMLElement} root The HTML element to render the DOM element(s) to.
+ * @param {DominarTagChildren} children The DOM element(s) to render.
+ * @param {Object} options An object containing rendering options.
+ * @param {boolean} [options.clearBeforeRender=true] Whether to clear the root element before rendering.
+ * @param {string} [options.insertType="append"] Whether to append or prepend the DOM element(s) to the root element.
+ * @returns {Promise<void>} A Promise that resolves when the rendering is complete.
+ * @throws {Error} If the root parameter is null or undefined.
+ */
+declare function render(root: HTMLElement, children: DominarTagChildren, options?: RenderOptions): Promise<void>;
 
 export { assignEventListeners, removeEventListeners, render, setAttributes, tag, tagList };
