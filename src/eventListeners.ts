@@ -1,4 +1,6 @@
-import { DominarEventListeners } from "./types";
+type DominarEventListeners = {
+    [K in keyof HTMLElementEventMap]?: (ev: HTMLElementEventMap[K]) => void;
+};
 /**
  * Assigns the specified event listeners to an HTML element.
  *
@@ -6,7 +8,7 @@ import { DominarEventListeners } from "./types";
  * @param {Object.<string, function>} eventListeners An object containing event listener functions keyed by event type.
  * @returns {HTMLElement} The same HTML element with the added event listeners.
  */
-export function assignEventListeners(
+function assignEventListeners(
     element: HTMLElement,
     eventListeners: DominarEventListeners
 ): HTMLElement {
@@ -22,7 +24,7 @@ export function assignEventListeners(
  * @param {Object.<string, function>} eventListeners An object containing event listener functions keyed by event type.
  * @returns {HTMLElement} The same HTML element with the added event listeners.
  */
-export function removeEventListeners(
+function removeEventListeners(
     element: HTMLElement,
     eventListeners: DominarEventListeners
 ): HTMLElement {
@@ -31,3 +33,5 @@ export function removeEventListeners(
     });
     return element;
 }
+
+export { DominarEventListeners, assignEventListeners, removeEventListeners };

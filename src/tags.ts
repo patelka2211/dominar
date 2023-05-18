@@ -1,113 +1,111 @@
-import { setAttributes } from "./attributes";
-import { assignEventListeners } from "./eventListeners";
-import { DominarEventListeners, DominarTagAttributes } from "./types";
+import { DominarTagAttributes, setAttributes } from "./attributes";
+import { DominarEventListeners, assignEventListeners } from "./eventListeners";
+
+type DominarTagChildren =
+    | string
+    | number
+    | DominarTag
+    | DominarTagList
+    | HTMLElement;
+type DominarTagData = {
+    attributes?: DominarTagAttributes;
+    children?: DominarTagChildren;
+    eventListeners?: DominarEventListeners;
+};
 
 /**
- * A class representing a DOM element with methods for setting attributes, adding children,
- * and adding event listeners.
+ * Represents a DOM element wrapped in a DominarTag.
  */
 class DominarTag {
+    /**
+     * The rendered DOM element of the tag.
+     * @type {HTMLElement}
+     */
     public renderedTag: HTMLElement;
-    private attributesSet = false;
-    private childrenSet = false;
-    private eventListenersSet = false;
 
     /**
-     * Constructs a new instance of the DominarTag class with the specified tag name.
-     *
-     * @param {string} tagName The name of the HTML tag to create.
+     * Creates an instance of the DominarTag class.
+     * @param {string} tagName - The name of the tag to create.
+     * @param {DominarTagData} [tagData] - Optional data for initializing the tag.
      */
-    constructor(tagName: string) {
+    constructor(tagName: string, tagData?: DominarTagData) {
         this.renderedTag = document.createElement(tagName);
-    }
 
-    /**
-     * Sets the attributes of the DOM element.
-     *
-     * @param {DominarTagAttributes} attributes An object containing the attributes to set.
-     * @returns {DominarTag} The current DominarTag instance, for chaining.
-     */
-    public setAttributes(attributes: DominarTagAttributes): DominarTag {
-        if (this.attributesSet) return this;
-        setAttributes(this.renderedTag, attributes);
-        this.attributesSet = true;
-        return this;
-    }
+        if (tagData !== undefined) {
+            let { attributes, children, eventListeners } = tagData;
 
-    /**
-     * Adds children to the DOM element.
-     *
-     * @param {...(string | number | DominarTag | DominarTagList)} children The children to add.
-     * @returns {DominarTag} The current DominarTag instance, for chaining.
-     */
-    public addChildren(
-        ...children: (string | number | DominarTag | DominarTagList)[]
-    ): DominarTag {
-        if (this.childrenSet) return this;
-        children.forEach((child) => {
-            if (typeof child === "string") this.renderedTag.append(child);
-            else if (typeof child === "number")
-                this.renderedTag.append(child.toString());
-            else if (child instanceof DominarTag)
-                this.renderedTag.append(child.renderedTag);
-            else if (child instanceof DominarTagList)
-                child.renderedTagList.forEach((renderedTag) => {
-                    this.renderedTag.append(renderedTag);
-                });
-        });
-        this.childrenSet = true;
-        return this;
-    }
+            // Set attributes
+            if (attributes !== undefined)
+                setAttributes(this.renderedTag, attributes);
 
-    /**
-     * Adds event listeners to the DOM element.
-     *
-     * @param {DominarEventListeners} eventListeners An object containing the event listeners to add.
-     * @returns {DominarTag} The current DominarTag instance, for chaining.
-     */
-    public addEventListeners(
-        eventListeners: DominarEventListeners
-    ): DominarTag {
-        if (this.eventListenersSet) return this;
-        assignEventListeners(this.renderedTag, eventListeners);
-        this.eventListenersSet = true;
-        return this;
+            // Append children
+            if (children !== undefined) {
+                if (
+                    typeof children === "string" ||
+                    typeof children === "number"
+                )
+                    this.renderedTag.innerHTML += String(children);
+                else if (children instanceof DominarTag)
+                    this.renderedTag.append(children.renderedTag);
+                else if (children instanceof DominarTagList)
+                    children.renderedTagList.forEach((tag) => {
+                        if (typeof tag === "string")
+                            this.renderedTag.innerHTML += tag;
+                        else this.renderedTag.append(tag);
+                    });
+                else if (children instanceof HTMLElement)
+                    this.renderedTag.append(children);
+            }
+
+            // Assign event listeners
+            if (eventListeners !== undefined)
+                assignEventListeners(this.renderedTag, eventListeners);
+        }
     }
 }
 
-/**
- * Creates a new instance of DominarTag.
- * @param {string} tagName The tag name for the new DominarTag instance.
- * @returns {DominarTag} A new instance of DominarTag.
+/** Creates a new DominarTag instance with the specified tag name and optional tag data.
+ *
+ * @param {string} tagName - The name of the tag.
+ * @param {DominarTagData} [tagData] - Optional tag data.
+ * @returns {DominarTag} A new DominarTag instance.
  */
-function tag<K extends keyof HTMLElementTagNameMap>(tagName: K): DominarTag;
-function tag(tagName: string): DominarTag;
-/**
- * Creates a new instance of DominarTag.
- * @param {string} tagName The tag name for the new DominarTag instance.
- * @returns {DominarTag} A new instance of DominarTag.
+function tag<K extends keyof HTMLElementTagNameMap>(
+    tagName: K,
+    tagData?: DominarTagData
+): DominarTag;
+function tag(tagName: string, tagData?: DominarTagData): DominarTag;
+/** Creates a new DominarTag instance with the specified tag name and optional tag data.
+ *
+ * @param {string} tagName - The name of the tag.
+ * @param {DominarTagData} [tagData] - Optional tag data.
+ * @returns {DominarTag} A new DominarTag instance.
  */
-function tag(tagName: string): DominarTag {
-    return new DominarTag(tagName);
+function tag(tagName: string, tagData?: DominarTagData): DominarTag {
+    return new DominarTag(tagName, tagData);
 }
 
 /**
  * Represents a list of rendered HTML tags.
  */
 class DominarTagList {
-    public renderedTagList: (string | HTMLElement)[] = [];
     /**
-     * Creates a new instance of DominarTagList.
-     * @param {(string | number | DominarTag)[]} tags The list of tags to render.
+     * The array of rendered tags, which can be either strings or HTML elements.
      */
-    constructor(tags: (string | number | DominarTag)[]) {
-        tags.forEach((tag) => {
-            if (tag !== null)
-                if (typeof tag === "string") this.renderedTagList.push(tag);
-                else if (typeof tag === "number")
-                    this.renderedTagList.push(tag.toString());
-                else if (tag instanceof DominarTag)
-                    this.renderedTagList.push(tag.renderedTag);
+    public renderedTagList: (string | HTMLElement)[] = [];
+
+    /**
+     * Constructs a new instance of the DominarTagList class.
+     * @param {Array<string | number | DominarTag | HTMLElement>} tags - The initial list of tags.
+     */
+    constructor(tags: (string | number | DominarTag | HTMLElement)[]) {
+        tags.forEach((item) => {
+            if (typeof item === "string" || typeof item === "number")
+                this.renderedTagList.push(String(item));
+            else if (item instanceof DominarTag)
+                this.renderedTagList.push(item.renderedTag);
+            else if (item instanceof HTMLElement)
+                this.renderedTagList.push(item);
         });
     }
 }
@@ -117,8 +115,10 @@ class DominarTagList {
  * @param tags An array of tags to include in the DominarTagList.
  * @returns A new instance of DominarTagList.
  */
-function tagList(...tags: (string | number | DominarTag)[]): DominarTagList {
+function tagList(
+    ...tags: (string | number | DominarTag | HTMLElement)[]
+): DominarTagList {
     return new DominarTagList(tags);
 }
 
-export { DominarTag, tag, DominarTagList, tagList };
+export { tag, tagList, DominarTag, DominarTagList, DominarTagChildren };

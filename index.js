@@ -9,14 +9,10 @@ function setAttributes(element, attributes) {
     for (var attributeName in attributes) {
         if (Object.prototype.hasOwnProperty.call(attributes, attributeName)) {
             var attributeValue = attributes[attributeName];
-            if (typeof attributeValue === "string") {
-                if (attributeValue === "")
-                    attributeValue = " ";
-                element.setAttribute(attributeName, attributeValue);
-            }
-            else if (typeof attributeValue === "number")
-                element.setAttribute(attributeName, attributeValue.toString());
-            else if (attributeValue === true)
+            if (typeof attributeValue === "string" ||
+                typeof attributeValue === "number")
+                element.setAttribute(attributeName, attributeValue === "" ? " " : String(attributeValue));
+            else
                 element.setAttribute(attributeName, "");
         }
     }
@@ -53,105 +49,76 @@ function removeEventListeners(element, eventListeners) {
 }
 
 /**
- * A class representing a DOM element with methods for setting attributes, adding children,
- * and adding event listeners.
+ * Represents a DOM element wrapped in a DominarTag.
  */
 var DominarTag = /** @class */ (function () {
     /**
-     * Constructs a new instance of the DominarTag class with the specified tag name.
-     *
-     * @param {string} tagName The name of the HTML tag to create.
+     * Creates an instance of the DominarTag class.
+     * @param {string} tagName - The name of the tag to create.
+     * @param {DominarTagData} [tagData] - Optional data for initializing the tag.
      */
-    function DominarTag(tagName) {
-        this.attributesSet = false;
-        this.childrenSet = false;
-        this.eventListenersSet = false;
-        this.renderedTag = document.createElement(tagName);
-    }
-    /**
-     * Sets the attributes of the DOM element.
-     *
-     * @param {DominarTagAttributes} attributes An object containing the attributes to set.
-     * @returns {DominarTag} The current DominarTag instance, for chaining.
-     */
-    DominarTag.prototype.setAttributes = function (attributes) {
-        if (this.attributesSet)
-            return this;
-        setAttributes(this.renderedTag, attributes);
-        this.attributesSet = true;
-        return this;
-    };
-    /**
-     * Adds children to the DOM element.
-     *
-     * @param {...(string | number | DominarTag | DominarTagList)} children The children to add.
-     * @returns {DominarTag} The current DominarTag instance, for chaining.
-     */
-    DominarTag.prototype.addChildren = function () {
+    function DominarTag(tagName, tagData) {
         var _this = this;
-        var children = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            children[_i] = arguments[_i];
+        this.renderedTag = document.createElement(tagName);
+        if (tagData !== undefined) {
+            var attributes = tagData.attributes, children = tagData.children, eventListeners = tagData.eventListeners;
+            // Set attributes
+            if (attributes !== undefined)
+                setAttributes(this.renderedTag, attributes);
+            // Append children
+            if (children !== undefined) {
+                if (typeof children === "string" ||
+                    typeof children === "number")
+                    this.renderedTag.innerHTML += String(children);
+                else if (children instanceof DominarTag)
+                    this.renderedTag.append(children.renderedTag);
+                else if (children instanceof DominarTagList)
+                    children.renderedTagList.forEach(function (tag) {
+                        if (typeof tag === "string")
+                            _this.renderedTag.innerHTML += tag;
+                        else
+                            _this.renderedTag.append(tag);
+                    });
+                else if (children instanceof HTMLElement)
+                    this.renderedTag.append(children);
+            }
+            // Assign event listeners
+            if (eventListeners !== undefined)
+                assignEventListeners(this.renderedTag, eventListeners);
         }
-        if (this.childrenSet)
-            return this;
-        children.forEach(function (child) {
-            if (typeof child === "string")
-                _this.renderedTag.append(child);
-            else if (typeof child === "number")
-                _this.renderedTag.append(child.toString());
-            else if (child instanceof DominarTag)
-                _this.renderedTag.append(child.renderedTag);
-            else if (child instanceof DominarTagList)
-                child.renderedTagList.forEach(function (renderedTag) {
-                    _this.renderedTag.append(renderedTag);
-                });
-        });
-        this.childrenSet = true;
-        return this;
-    };
-    /**
-     * Adds event listeners to the DOM element.
-     *
-     * @param {DominarEventListeners} eventListeners An object containing the event listeners to add.
-     * @returns {DominarTag} The current DominarTag instance, for chaining.
-     */
-    DominarTag.prototype.addEventListeners = function (eventListeners) {
-        if (this.eventListenersSet)
-            return this;
-        assignEventListeners(this.renderedTag, eventListeners);
-        this.eventListenersSet = true;
-        return this;
-    };
+    }
     return DominarTag;
 }());
-/**
- * Creates a new instance of DominarTag.
- * @param {string} tagName The tag name for the new DominarTag instance.
- * @returns {DominarTag} A new instance of DominarTag.
+/** Creates a new DominarTag instance with the specified tag name and optional tag data.
+ *
+ * @param {string} tagName - The name of the tag.
+ * @param {DominarTagData} [tagData] - Optional tag data.
+ * @returns {DominarTag} A new DominarTag instance.
  */
-function tag(tagName) {
-    return new DominarTag(tagName);
+function tag(tagName, tagData) {
+    return new DominarTag(tagName, tagData);
 }
 /**
  * Represents a list of rendered HTML tags.
  */
 var DominarTagList = /** @class */ (function () {
     /**
-     * Creates a new instance of DominarTagList.
-     * @param {(string | number | DominarTag)[]} tags The list of tags to render.
+     * Constructs a new instance of the DominarTagList class.
+     * @param {Array<string | number | DominarTag | HTMLElement>} tags - The initial list of tags.
      */
     function DominarTagList(tags) {
         var _this = this;
+        /**
+         * The array of rendered tags, which can be either strings or HTML elements.
+         */
         this.renderedTagList = [];
-        tags.forEach(function (tag) {
-            if (tag !== null)
-                if (typeof tag === "string")
-                    _this.renderedTagList.push(tag);
-                else if (typeof tag === "number")
-                    _this.renderedTagList.push(tag.toString());
-                else if (tag instanceof DominarTag)
-                    _this.renderedTagList.push(tag.renderedTag);
+        tags.forEach(function (item) {
+            if (typeof item === "string" || typeof item === "number")
+                _this.renderedTagList.push(String(item));
+            else if (item instanceof DominarTag)
+                _this.renderedTagList.push(item.renderedTag);
+            else if (item instanceof HTMLElement)
+                _this.renderedTagList.push(item);
         });
     }
     return DominarTagList;
@@ -209,44 +176,54 @@ var __generator$1 = (undefined && undefined.__generator) || function (thisArg, b
  * Renders a DOM element or a list of elements to a specified HTML element.
  *
  * @param {HTMLElement} root The HTML element to render the DOM element(s) to.
- * @param {string | number | DominarTag | DominarTagList} DominarObject The DOM element(s) to render.
+ * @param {DominarTagChildren} children The DOM element(s) to render.
  * @param {Object} options An object containing rendering options.
  * @param {boolean} [options.clearBeforeRender=true] Whether to clear the root element before rendering.
  * @param {string} [options.insertType="append"] Whether to append or prepend the DOM element(s) to the root element.
  * @returns {Promise<void>} A Promise that resolves when the rendering is complete.
  * @throws {Error} If the root parameter is null or undefined.
  */
-function render(root, DominarObject, options) {
+function render(root, children, options) {
+    if (options === void 0) { options = {
+        clearBeforeRender: true,
+    }; }
     return __awaiter$1(this, void 0, void 0, function () {
-        var currentInnerHTML;
-        var _a;
-        return __generator$1(this, function (_b) {
-            if (DominarObject === null)
-                return [2 /*return*/];
-            if (root === undefined)
-                throw Error("Parameter \"root\" can't be null, it must be HTML element.");
-            if (options.clearBeforeRender === undefined)
-                options.clearBeforeRender = true;
-            if (options.clearBeforeRender === true)
+        var clearBeforeRender, insertType, currentChildren, children_1, index, child;
+        return __generator$1(this, function (_a) {
+            clearBeforeRender = options.clearBeforeRender, insertType = options.insertType;
+            if (clearBeforeRender === undefined) {
+                clearBeforeRender = true;
                 root.innerHTML = "";
-            if (options.insertType === undefined || options.clearBeforeRender === true)
-                options.insertType = "append";
-            if (typeof DominarObject === "string")
-                root[options.insertType](DominarObject);
-            else if (typeof DominarObject === "number")
-                root[options.insertType](DominarObject.toString());
-            else if (DominarObject instanceof DominarTag)
-                root[options.insertType](DominarObject.renderedTag);
-            else if (DominarObject instanceof DominarTagList) {
-                currentInnerHTML = void 0;
-                if (options.insertType === "prepend")
-                    _a = [root.innerHTML, ""], currentInnerHTML = _a[0], root.innerHTML = _a[1];
-                DominarObject.renderedTagList.forEach(function (tag) {
-                    root.append(tag);
-                });
-                if (options.insertType === "prepend" && currentInnerHTML !== undefined)
-                    root.innerHTML += currentInnerHTML;
             }
+            if (clearBeforeRender === true || insertType === undefined)
+                insertType = "append";
+            if (insertType === "prepend") {
+                currentChildren = [];
+                children_1 = root.children;
+                for (index = 0; index < children_1.length; index++) {
+                    child = children_1.item(index);
+                    if (child !== null)
+                        currentChildren.push(child);
+                }
+                root.innerHTML = "";
+            }
+            if (typeof children === "string" || typeof children === "number")
+                root.innerHTML += String(children);
+            else if (children instanceof DominarTag)
+                root.append(children.renderedTag);
+            else if (children instanceof DominarTagList)
+                children.renderedTagList.forEach(function (child) {
+                    if (typeof child === "string")
+                        root.innerHTML += child;
+                    else
+                        root.append(child);
+                });
+            else if (children instanceof HTMLElement)
+                root.append(children);
+            if (insertType === "prepend" && currentChildren !== undefined)
+                currentChildren.forEach(function (child) {
+                    root.append(child);
+                });
             return [2 /*return*/];
         });
     });
@@ -288,7 +265,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var VERSION = "1.1.6";
+var VERSION = "1.1.7";
 function getLatestVersion(packageName) {
     return __awaiter(this, void 0, void 0, function () {
         var response, latest_version;
