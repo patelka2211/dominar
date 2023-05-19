@@ -1,16 +1,16 @@
-type DominarEventListeners = {
+type DominarTagEventListeners = {
     [K in keyof HTMLElementEventMap]?: (ev: HTMLElementEventMap[K]) => void;
 };
 /**
- * Assigns the specified event listeners to an HTML element.
+ * Adds the specified event listeners to an HTML element.
  *
- * @param {HTMLElement} element The HTML element to assign event listeners to.
+ * @param {HTMLElement} element The HTML element to add event listeners to.
  * @param {Object.<string, function>} eventListeners An object containing event listener functions keyed by event type.
  * @returns {HTMLElement} The same HTML element with the added event listeners.
  */
-function assignEventListeners(
+function addEventListeners(
     element: HTMLElement,
-    eventListeners: DominarEventListeners
+    eventListeners: DominarTagEventListeners
 ): HTMLElement {
     Object.entries(eventListeners).forEach(([type, listener]) => {
         element.addEventListener(type, listener as (ev: Event) => void);
@@ -26,7 +26,7 @@ function assignEventListeners(
  */
 function removeEventListeners(
     element: HTMLElement,
-    eventListeners: DominarEventListeners
+    eventListeners: DominarTagEventListeners
 ): HTMLElement {
     Object.entries(eventListeners).forEach(([type, listener]) => {
         element.removeEventListener(type, listener as (ev: Event) => void);
@@ -34,4 +34,4 @@ function removeEventListeners(
     return element;
 }
 
-export { DominarEventListeners, assignEventListeners, removeEventListeners };
+export { DominarTagEventListeners, addEventListeners, removeEventListeners };
