@@ -1,7 +1,7 @@
-import { DominarTag, DominarTagChildren, DominarTagList } from "./tags";
+import { DominarTagChildren, insertChildren, childrenInsertType } from "./tags";
 type RenderOptions = {
     clearBeforeRender?: boolean;
-    insertType?: "prepend" | "append";
+    insertType?: childrenInsertType;
 };
 /**
  * Renders a DOM element or a list of elements to a specified HTML element.
@@ -23,39 +23,13 @@ async function render(
 ): Promise<void> {
     let { clearBeforeRender, insertType } = options;
 
-    if (clearBeforeRender === undefined) {
-        clearBeforeRender = true;
-        root.innerHTML = "";
-    }
+    if (clearBeforeRender === undefined) clearBeforeRender = true;
+    if (clearBeforeRender === true) root.innerHTML = "";
+
     if (clearBeforeRender === true || insertType === undefined)
         insertType = "append";
 
-    let currentChildren;
-
-    if (insertType === "prepend") {
-        currentChildren = [];
-        let children = root.children;
-        for (let index = 0; index < children.length; index++) {
-            const child = children.item(index);
-            if (child !== null) currentChildren.push(child);
-        }
-        root.innerHTML = "";
-    }
-
-    if (typeof children === "string" || typeof children === "number")
-        root.innerHTML += String(children);
-    else if (children instanceof DominarTag) root.append(children.renderedTag);
-    else if (children instanceof DominarTagList)
-        children.renderedTagList.forEach((child) => {
-            if (typeof child === "string") root.innerHTML += child;
-            else root.append(child);
-        });
-    else if (children instanceof HTMLElement) root.append(children);
-
-    if (insertType === "prepend" && currentChildren !== undefined)
-        currentChildren.forEach((child) => {
-            root.append(child);
-        });
+    insertChildren(root, children, insertType);
 }
 
 export { render };

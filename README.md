@@ -7,9 +7,9 @@ Dominar is a powerful library designed to make it easy for developers to manipul
 ## Installation
 
 [![npm (scoped)](https://img.shields.io/npm/v/@patelka2211/dominar)](https://www.npmjs.com/package/@patelka2211/dominar)
-[![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@patelka2211/dominar)](https://bundlephobia.com/package/@patelka2211/dominar@1.1.7)
+[![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@patelka2211/dominar)](https://bundlephobia.com/package/@patelka2211/dominar@1.1.8)
 [![npm](https://img.shields.io/npm/dm/@patelka2211/dominar)](#)
-[![jsDelivr hits (npm scoped)](https://img.shields.io/jsdelivr/npm/hm/@patelka2211/dominar)](https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.7/)
+[![jsDelivr hits (npm scoped)](https://img.shields.io/jsdelivr/npm/hm/@patelka2211/dominar)](https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.8/)
 
 To install Dominar using npm, run the following command:
 
@@ -20,7 +20,7 @@ npm i @patelka2211/dominar
 Alternatively, you can include Dominar in your website using a `<script>` tag:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.7/Dominar.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.8/Dominar.iife.js"></script>
 ```
 
 ## Examples
@@ -31,7 +31,7 @@ Here are some examples of how you can use Dominar:
 
 ```js
 import {
-    assignEventListeners,
+    addEventListeners,
     render,
     setAttributes,
     tag,
@@ -72,8 +72,8 @@ setAttributes(document.body, {
     style: "background-color: azure;",
 });
 
-// Example of Dominar's assignEventListeners function
-assignEventListeners(document.body, {
+// Example of Dominar's addEventListeners function
+addEventListeners(document.body, {
     keydown: (ev) => {
         console.log(`Key "${ev.key}" pressed`);
     },
@@ -85,7 +85,7 @@ assignEventListeners(document.body, {
 If the script tag is not already included in the `<head>` tag, please add the following script tag to include the necessary JavaScript file.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.7/Dominar.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.8/Dominar.iife.js"></script>
 ```
 
 ```html
@@ -124,8 +124,8 @@ If the script tag is not already included in the `<head>` tag, please add the fo
         style: "background-color: azure;",
     });
 
-    // Example of Dominar's assignEventListeners function
-    Dominar.assignEventListeners(document.body, {
+    // Example of Dominar's addEventListeners function
+    Dominar.addEventListeners(document.body, {
         keydown: (ev) => {
             console.log(`Key "${ev.key}" pressed`);
         },

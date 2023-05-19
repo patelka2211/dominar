@@ -1,16 +1,56 @@
 import { DominarTagAttributes, setAttributes } from "./attributes";
-import { DominarEventListeners, assignEventListeners } from "./eventListeners";
+import { DominarTagEventListeners, addEventListeners } from "./eventListeners";
+import { parsedSVG } from "./svgParser";
+
+type childrenInsertType = "prepend" | "append";
 
 type DominarTagChildren =
     | string
     | number
     | DominarTag
     | DominarTagList
+    | parsedSVG
     | HTMLElement;
+
+/**
+ * Inserts children into an HTML element.
+ * @param {HTMLElement} root The root HTML element where the children will be inserted.
+ * @param {DominarTagChildren} children The children to be inserted.
+ * @param {childrenInsertType} [insertType="append"] The type of insertion. Default is "append".
+ * @returns {HTMLElement} The modified root HTML element.
+ */
+function insertChildren(
+    root: HTMLElement,
+    children: DominarTagChildren,
+    insertType: childrenInsertType = "append"
+): HTMLElement {
+    if (typeof children === "string" || typeof children === "number")
+        root[insertType](String(children));
+    else if (children instanceof DominarTag)
+        root[insertType](children.renderedTag);
+    else if (children instanceof DominarTagList) {
+        let renderedTagList = children.renderedTagList,
+            multiplier1 = insertType === "append" ? 0 : 1,
+            multiplier2 = insertType === "append" ? 1 : -1;
+
+        for (let index = 0; index < renderedTagList.length; index++) {
+            root[insertType](
+                renderedTagList[
+                    (renderedTagList.length - 1) * multiplier1 +
+                        index * multiplier2
+                ]
+            );
+        }
+    } else if (children instanceof parsedSVG && children.svg !== null)
+        root[insertType](children.svg);
+    else if (children instanceof HTMLElement) root[insertType](children);
+    return root;
+}
+
 type DominarTagData = {
     attributes?: DominarTagAttributes;
     children?: DominarTagChildren;
-    eventListeners?: DominarEventListeners;
+    eventListeners?: DominarTagEventListeners;
 };
 
 /**
@@ -25,8 +65,8 @@ class DominarTag {
 
     /**
      * Creates an instance of the DominarTag class.
-     * @param {string} tagName - The name of the tag to create.
-     * @param {DominarTagData} [tagData] - Optional data for initializing the tag.
+     * @param {string} tagName The name of the tag to create.
+     * @param {DominarTagData} [tagData] Optional data for initializing the tag.
      */
     constructor(tagName: string, tagData?: DominarTagData) {
         this.renderedTag = document.createElement(tagName);
@@ -39,35 +79,20 @@ class DominarTag {
                 setAttributes(this.renderedTag, attributes);
 
             // Append children
-            if (children !== undefined) {
-                if (
-                    typeof children === "string" ||
-                    typeof children === "number"
-                )
-                    this.renderedTag.innerHTML += String(children);
-                else if (children instanceof DominarTag)
-                    this.renderedTag.append(children.renderedTag);
-                else if (children instanceof DominarTagList)
-                    children.renderedTagList.forEach((tag) => {
-                        if (typeof tag === "string")
-                            this.renderedTag.innerHTML += tag;
-                        else this.renderedTag.append(tag);
-                    });
-                else if (children instanceof HTMLElement)
-                    this.renderedTag.append(children);
-            }
+            if (children !== undefined)
+                insertChildren(this.renderedTag, children);
 
-            // Assign event listeners
+            // Add event listeners
             if (eventListeners !== undefined)
-                assignEventListeners(this.renderedTag, eventListeners);
+                addEventListeners(this.renderedTag, eventListeners);
         }
     }
 }
 
 /** Creates a new DominarTag instance with the specified tag name and optional tag data.
  *
- * @param {string} tagName - The name of the tag.
- * @param {DominarTagData} [tagData] - Optional tag data.
+ * @param {string} tagName The name of the tag.
+ * @param {DominarTagData} [tagData] Optional tag data.
  * @returns {DominarTag} A new DominarTag instance.
  */
 function tag<K extends keyof HTMLElementTagNameMap>(
@@ -77,13 +102,21 @@ function tag<K extends keyof HTMLElementTagNameMap>(
 function tag(tagName: string, tagData?: DominarTagData): DominarTag;
 /** Creates a new DominarTag instance with the specified tag name and optional tag data.
  *
- * @param {string} tagName - The name of the tag.
- * @param {DominarTagData} [tagData] - Optional tag data.
+ * @param {string} tagName The name of the tag.
+ * @param {DominarTagData} [tagData] Optional tag data.
  * @returns {DominarTag} A new DominarTag instance.
  */
 function tag(tagName: string, tagData?: DominarTagData): DominarTag {
     return new DominarTag(tagName, tagData);
 }
+
+type DominarTagListData = (
+    | string
+    | number
+    | DominarTag
+    | parsedSVG
+    | HTMLElement
+)[];
 
 /**
  * Represents a list of rendered HTML tags.
@@ -92,20 +125,21 @@ class DominarTagList {
     /**
      * The array of rendered tags, which can be either strings or HTML elements.
      */
-    public renderedTagList: (string | HTMLElement)[] = [];
+    public renderedTagList: (string | HTMLElement | SVGSVGElement)[] = [];
 
     /**
      * Constructs a new instance of the DominarTagList class.
-     * @param {Array<string | number | DominarTag | HTMLElement>} tags - The initial list of tags.
+     * @param {DominarTagListData} tags The initial list of tags.
      */
-    constructor(tags: (string | number | DominarTag | HTMLElement)[]) {
-        tags.forEach((item) => {
-            if (typeof item === "string" || typeof item === "number")
-                this.renderedTagList.push(String(item));
-            else if (item instanceof DominarTag)
-                this.renderedTagList.push(item.renderedTag);
-            else if (item instanceof HTMLElement)
-                this.renderedTagList.push(item);
+    constructor(tags: DominarTagListData) {
+        tags.forEach((tag) => {
+            if (typeof tag === "string" || typeof tag === "number")
+                this.renderedTagList.push(String(tag));
+            else if (tag instanceof DominarTag)
+                this.renderedTagList.push(tag.renderedTag);
+            else if (tag instanceof parsedSVG && tag.svg !== null)
+                this.renderedTagList.push(tag.svg);
+            else if (tag instanceof HTMLElement) this.renderedTagList.push(tag);
         });
     }
 }
@@ -115,10 +149,16 @@ class DominarTagList {
  * @param tags An array of tags to include in the DominarTagList.
  * @returns A new instance of DominarTagList.
  */
-function tagList(
-    ...tags: (string | number | DominarTag | HTMLElement)[]
-): DominarTagList {
+function tagList(...tags: DominarTagListData): DominarTagList {
     return new DominarTagList(tags);
 }
 
-export { tag, tagList, DominarTag, DominarTagList, DominarTagChildren };
+export {
+    tag,
+    tagList,
+    DominarTag,
+    DominarTagList,
+    DominarTagChildren,
+    insertChildren,
+    childrenInsertType,
+};

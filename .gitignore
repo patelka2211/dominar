@@ -4,6 +4,7 @@
 # Development purpose files and folders
 node_modules
 /lib
+/test
 
 # VSCode settings
 .vscode

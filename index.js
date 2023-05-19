@@ -20,13 +20,13 @@ function setAttributes(element, attributes) {
 }
 
 /**
- * Assigns the specified event listeners to an HTML element.
+ * Adds the specified event listeners to an HTML element.
  *
- * @param {HTMLElement} element The HTML element to assign event listeners to.
+ * @param {HTMLElement} element The HTML element to add event listeners to.
  * @param {Object.<string, function>} eventListeners An object containing event listener functions keyed by event type.
  * @returns {HTMLElement} The same HTML element with the added event listeners.
  */
-function assignEventListeners(element, eventListeners) {
+function addEventListeners(element, eventListeners) {
     Object.entries(eventListeners).forEach(function (_a) {
         var type = _a[0], listener = _a[1];
         element.addEventListener(type, listener);
@@ -48,17 +48,75 @@ function removeEventListeners(element, eventListeners) {
     return element;
 }
 
+// Create a new DOM parser
+var parser = new DOMParser();
+/**
+ * Represents a parsed SVG.
+ */
+var parsedSVG = /** @class */ (function () {
+    /**
+     * Creates a new parsedSVG instance.
+     * @constructor
+     * @param {string} svgString The SVG string to be parsed.
+     */
+    function parsedSVG(svgString) {
+        var _a;
+        // Parse the SVG string
+        var doc = parser.parseFromString(svgString, "image/svg+xml");
+        // Get the root SVG element
+        this.svg = doc.querySelector("svg");
+        // Check if there is any error in parsed SVG
+        if (((_a = this.svg) === null || _a === void 0 ? void 0 : _a.querySelector("parsererror")) !== null)
+            this.svg = null;
+    }
+    return parsedSVG;
+}());
+/**
+ * Parses an SVG string and returns a parsedSVG instance.
+ * @function
+ * @param {string} svgString The SVG string to be parsed.
+ * @returns {parsedSVG} The parsed SVG.
+ */
+function SVGParser(svgString) {
+    return new parsedSVG(svgString);
+}
+
+/**
+ * Inserts children into an HTML element.
+ * @param {HTMLElement} root The root HTML element where the children will be inserted.
+ * @param {DominarTagChildren} children The children to be inserted.
+ * @param {childrenInsertType} [insertType="append"] The type of insertion. Default is "append".
+ * @returns {HTMLElement} The modified root HTML element.
+ */
+function insertChildren(root, children, insertType) {
+    if (insertType === void 0) { insertType = "append"; }
+    if (typeof children === "string" || typeof children === "number")
+        root[insertType](String(children));
+    else if (children instanceof DominarTag)
+        root[insertType](children.renderedTag);
+    else if (children instanceof DominarTagList) {
+        var renderedTagList = children.renderedTagList, multiplier1 = insertType === "append" ? 0 : 1, multiplier2 = insertType === "append" ? 1 : -1;
+        for (var index = 0; index < renderedTagList.length; index++) {
+            root[insertType](renderedTagList[(renderedTagList.length - 1) * multiplier1 +
+                index * multiplier2]);
+        }
+    }
+    else if (children instanceof parsedSVG && children.svg !== null)
+        root[insertType](children.svg);
+    else if (children instanceof HTMLElement)
+        root[insertType](children);
+    return root;
+}
 /**
  * Represents a DOM element wrapped in a DominarTag.
  */
 var DominarTag = /** @class */ (function () {
     /**
      * Creates an instance of the DominarTag class.
-     * @param {string} tagName - The name of the tag to create.
-     * @param {DominarTagData} [tagData] - Optional data for initializing the tag.
+     * @param {string} tagName The name of the tag to create.
+     * @param {DominarTagData} [tagData] Optional data for initializing the tag.
      */
     function DominarTag(tagName, tagData) {
-        var _this = this;
         this.renderedTag = document.createElement(tagName);
         if (tagData !== undefined) {
             var attributes = tagData.attributes, children = tagData.children, eventListeners = tagData.eventListeners;
@@ -66,33 +124,19 @@ var DominarTag = /** @class */ (function () {
             if (attributes !== undefined)
                 setAttributes(this.renderedTag, attributes);
             // Append children
-            if (children !== undefined) {
-                if (typeof children === "string" ||
-                    typeof children === "number")
-                    this.renderedTag.innerHTML += String(children);
-                else if (children instanceof DominarTag)
-                    this.renderedTag.append(children.renderedTag);
-                else if (children instanceof DominarTagList)
-                    children.renderedTagList.forEach(function (tag) {
-                        if (typeof tag === "string")
-                            _this.renderedTag.innerHTML += tag;
-                        else
-                            _this.renderedTag.append(tag);
-                    });
-                else if (children instanceof HTMLElement)
-                    this.renderedTag.append(children);
-            }
-            // Assign event listeners
+            if (children !== undefined)
+                insertChildren(this.renderedTag, children);
+            // Add event listeners
             if (eventListeners !== undefined)
-                assignEventListeners(this.renderedTag, eventListeners);
+                addEventListeners(this.renderedTag, eventListeners);
         }
     }
     return DominarTag;
 }());
 /** Creates a new DominarTag instance with the specified tag name and optional tag data.
  *
- * @param {string} tagName - The name of the tag.
- * @param {DominarTagData} [tagData] - Optional tag data.
+ * @param {string} tagName The name of the tag.
+ * @param {DominarTagData} [tagData] Optional tag data.
  * @returns {DominarTag} A new DominarTag instance.
  */
 function tag(tagName, tagData) {
@@ -104,7 +148,7 @@ function tag(tagName, tagData) {
 var DominarTagList = /** @class */ (function () {
     /**
      * Constructs a new instance of the DominarTagList class.
-     * @param {Array<string | number | DominarTag | HTMLElement>} tags - The initial list of tags.
+     * @param {DominarTagListData} tags The initial list of tags.
      */
     function DominarTagList(tags) {
         var _this = this;
@@ -112,13 +156,15 @@ var DominarTagList = /** @class */ (function () {
          * The array of rendered tags, which can be either strings or HTML elements.
          */
         this.renderedTagList = [];
-        tags.forEach(function (item) {
-            if (typeof item === "string" || typeof item === "number")
-                _this.renderedTagList.push(String(item));
-            else if (item instanceof DominarTag)
-                _this.renderedTagList.push(item.renderedTag);
-            else if (item instanceof HTMLElement)
-                _this.renderedTagList.push(item);
+        tags.forEach(function (tag) {
+            if (typeof tag === "string" || typeof tag === "number")
+                _this.renderedTagList.push(String(tag));
+            else if (tag instanceof DominarTag)
+                _this.renderedTagList.push(tag.renderedTag);
+            else if (tag instanceof parsedSVG && tag.svg !== null)
+                _this.renderedTagList.push(tag.svg);
+            else if (tag instanceof HTMLElement)
+                _this.renderedTagList.push(tag);
         });
     }
     return DominarTagList;
@@ -188,42 +234,16 @@ function render(root, children, options) {
         clearBeforeRender: true,
     }; }
     return __awaiter$1(this, void 0, void 0, function () {
-        var clearBeforeRender, insertType, currentChildren, children_1, index, child;
+        var clearBeforeRender, insertType;
         return __generator$1(this, function (_a) {
             clearBeforeRender = options.clearBeforeRender, insertType = options.insertType;
-            if (clearBeforeRender === undefined) {
+            if (clearBeforeRender === undefined)
                 clearBeforeRender = true;
+            if (clearBeforeRender === true)
                 root.innerHTML = "";
-            }
             if (clearBeforeRender === true || insertType === undefined)
                 insertType = "append";
-            if (insertType === "prepend") {
-                currentChildren = [];
-                children_1 = root.children;
-                for (index = 0; index < children_1.length; index++) {
-                    child = children_1.item(index);
-                    if (child !== null)
-                        currentChildren.push(child);
-                }
-                root.innerHTML = "";
-            }
-            if (typeof children === "string" || typeof children === "number")
-                root.innerHTML += String(children);
-            else if (children instanceof DominarTag)
-                root.append(children.renderedTag);
-            else if (children instanceof DominarTagList)
-                children.renderedTagList.forEach(function (child) {
-                    if (typeof child === "string")
-                        root.innerHTML += child;
-                    else
-                        root.append(child);
-                });
-            else if (children instanceof HTMLElement)
-                root.append(children);
-            if (insertType === "prepend" && currentChildren !== undefined)
-                currentChildren.forEach(function (child) {
-                    root.append(child);
-                });
+            insertChildren(root, children, insertType);
             return [2 /*return*/];
         });
     });
@@ -265,7 +285,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var VERSION = "1.1.7";
+var VERSION = "1.1.8";
 function getLatestVersion(packageName) {
     return __awaiter(this, void 0, void 0, function () {
         var response, latest_version;
@@ -293,4 +313,4 @@ getLatestVersion("@patelka2211/dominar").then(function (latest_version) {
         console.warn("You are using Dominar \"v".concat(VERSION, "\".\n\nDominar \"v").concat(latest_version, "\" is available. Visit https://patelka2211.github.io/dominar/ and follow provided instructions to upgrade to the latest version."));
 });
 
-export { assignEventListeners, removeEventListeners, render, setAttributes, tag, tagList };
+export { SVGParser, addEventListeners, insertChildren, removeEventListeners, render, setAttributes, tag, tagList };
