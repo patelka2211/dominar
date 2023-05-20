@@ -17,7 +17,7 @@ To install Dominar using npm, run the following command:
 npm i @patelka2211/dominar
 ```
 
-Alternatively, you can include Dominar in your website using a `<script>` tag:
+Alternatively, you can include [Dominar's IIFE file](https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.8/Dominar.iife.js) in your website using a `<script>` tag:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.8/Dominar.iife.js"></script>
@@ -82,7 +82,7 @@ addEventListeners(document.body, {
 
 ### When included as a `<script>` tag in a website.
 
-If the script tag is not already included in the `<head>` tag, please add the following script tag to include the necessary JavaScript file.
+If the script tag is not already included in the `<head>` tag, please add the following script tag to include [Dominar's IIFE JavaScript](https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.8/Dominar.iife.js) file.
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.8/Dominar.iife.js"></script>
@@ -135,6 +135,6 @@ If the script tag is not already included in the `<head>` tag, please add the fo
 
 ## License
 
-![NPM](https://img.shields.io/npm/l/@patelka2211/dominar)
+[![NPM](https://img.shields.io/npm/l/@patelka2211/dominar)](./LICENSE)
 
 This project is licensed under the [MIT License](./LICENSE), which permits you to use, copy, modify, merge, publish, distribute, and sublicense the software, subject to the conditions stated in the [LICENSE file](./LICENSE).
