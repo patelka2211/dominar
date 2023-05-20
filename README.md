@@ -4,12 +4,17 @@
 
 Dominar is a powerful library designed to make it easy for developers to manipulate the Document Object Model (DOM) and create dynamic HTML content. Dominar empowers you to take control of your web development projects like a pro. Unleash the power to dominate the DOM with Dominar.
 
+## Demo
+
+Visit [https://patelka2211.github.io/dominar/](https://patelka2211.github.io/dominar/) and click on "✨ See live preview" button to see a to-do app built using Dominar.
+
 ## Installation
 
 [![npm (scoped)](https://img.shields.io/npm/v/@patelka2211/dominar)](https://www.npmjs.com/package/@patelka2211/dominar)
 [![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@patelka2211/dominar)](https://bundlephobia.com/package/@patelka2211/dominar@1.1.8)
-[![npm](https://img.shields.io/npm/dm/@patelka2211/dominar)](#)
+[![npm](https://img.shields.io/npm/dm/@patelka2211/dominar)](#Installation)
 [![jsDelivr hits (npm scoped)](https://img.shields.io/jsdelivr/npm/hm/@patelka2211/dominar)](https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.8/)
+[![Libraries.io SourceRank, scoped npm package](https://img.shields.io/librariesio/sourcerank/npm/@patelka2211/dominar)](https://libraries.io/npm/@patelka2211%2Fdominar)
 
 To install Dominar using npm, run the following command:
 
