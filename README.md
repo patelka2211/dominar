@@ -14,8 +14,8 @@ Visit [https://patelka2211.github.io/dominar/](https://patelka2211.github.io/dom
 
 [![npm (scoped)](https://img.shields.io/npm/v/@patelka2211/dominar)](https://www.npmjs.com/package/@patelka2211/dominar)
 [![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@patelka2211/dominar)](https://bundlephobia.com/package/@patelka2211/dominar@1.1.8)
-[![npm](https://img.shields.io/npm/dm/@patelka2211/dominar)](#Installation)
-[![jsDelivr hits (npm scoped)](https://img.shields.io/jsdelivr/npm/hm/@patelka2211/dominar)](https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.8/)
+[![npm](https://img.shields.io/npm/dy/@patelka2211/dominar)](https://www.npmjs.com/package/@patelka2211/dominar)
+[![jsDelivr hits (npm scoped)](https://img.shields.io/jsdelivr/npm/hy/@patelka2211/dominar)](https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.8/)
 [![Libraries.io SourceRank, scoped npm package](https://img.shields.io/librariesio/sourcerank/npm/@patelka2211/dominar)](https://libraries.io/npm/@patelka2211%2Fdominar)
 
 To install Dominar using npm, run the following command:
