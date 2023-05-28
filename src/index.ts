@@ -3,7 +3,7 @@ export { render } from "./render";
 export { setAttributes } from "./attributes";
 export { addEventListeners, removeEventListeners } from "./eventListeners";
 export { SVGParser } from "./svgParser";
-const VERSION = "1.1.8";
+const VERSION = "1.1.9";
 
 async function getLatestVersion(packageName: string) {
     try {
