@@ -87,6 +87,17 @@ class DominarTag {
                 addEventListeners(this.renderedTag, eventListeners);
         }
     }
+
+    /**
+     * Executes an additional action on the rendered HTML element.
+     *
+     * @param {function} performAction A callback function that performs the action on the HTML element. The function takes an `HTMLElement` as its argument and does not return any value.
+     * @returns {DominarTag} The current instance of the DominarTag, allowing for method chaining.
+     */
+    additionally(performAction: (tag: HTMLElement) => void): DominarTag {
+        performAction(this.renderedTag);
+        return this;
+    }
 }
 
 /** Creates a new DominarTag instance with the specified tag name and optional tag data.

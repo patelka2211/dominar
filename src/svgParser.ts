@@ -1,6 +1,3 @@
-// Create a new DOM parser
-const parser = new DOMParser();
-
 /**
  * Represents a parsed SVG.
  */
@@ -17,6 +14,9 @@ class parsedSVG {
      * @param {string} svgString The SVG string to be parsed.
      */
     constructor(svgString: string) {
+        // Create a new DOM parser
+        const parser = new DOMParser();
+
         // Parse the SVG string
         const doc = parser.parseFromString(svgString, "image/svg+xml");
 

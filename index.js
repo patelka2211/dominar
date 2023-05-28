@@ -48,8 +48,6 @@ function removeEventListeners(element, eventListeners) {
     return element;
 }
 
-// Create a new DOM parser
-var parser = new DOMParser();
 /**
  * Represents a parsed SVG.
  */
@@ -61,6 +59,8 @@ var parsedSVG = /** @class */ (function () {
      */
     function parsedSVG(svgString) {
         var _a;
+        // Create a new DOM parser
+        var parser = new DOMParser();
         // Parse the SVG string
         var doc = parser.parseFromString(svgString, "image/svg+xml");
         // Get the root SVG element
@@ -131,6 +131,16 @@ var DominarTag = /** @class */ (function () {
                 addEventListeners(this.renderedTag, eventListeners);
         }
     }
+    /**
+     * Executes an additional action on the rendered HTML element.
+     *
+     * @param {function} performAction A callback function that performs the action on the HTML element. The function takes an `HTMLElement` as its argument and does not return any value.
+     * @returns {DominarTag} The current instance of the DominarTag, allowing for method chaining.
+     */
+    DominarTag.prototype.additionally = function (performAction) {
+        performAction(this.renderedTag);
+        return this;
+    };
     return DominarTag;
 }());
 /** Creates a new DominarTag instance with the specified tag name and optional tag data.
@@ -285,7 +295,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var VERSION = "1.1.8";
+var VERSION = "1.1.9";
 function getLatestVersion(packageName) {
     return __awaiter(this, void 0, void 0, function () {
         var response, latest_version;

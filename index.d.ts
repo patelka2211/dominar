@@ -84,6 +84,13 @@ declare class DominarTag {
      * @param {DominarTagData} [tagData] Optional data for initializing the tag.
      */
     constructor(tagName: string, tagData?: DominarTagData);
+    /**
+     * Executes an additional action on the rendered HTML element.
+     *
+     * @param {function} performAction A callback function that performs the action on the HTML element. The function takes an `HTMLElement` as its argument and does not return any value.
+     * @returns {DominarTag} The current instance of the DominarTag, allowing for method chaining.
+     */
+    additionally(performAction: (tag: HTMLElement) => void): DominarTag;
 }
 /** Creates a new DominarTag instance with the specified tag name and optional tag data.
  *

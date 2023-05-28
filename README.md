@@ -13,10 +13,9 @@ Visit [https://patelka2211.github.io/dominar/](https://patelka2211.github.io/dom
 ## Installation
 
 [![npm (scoped)](https://img.shields.io/npm/v/@patelka2211/dominar)](https://www.npmjs.com/package/@patelka2211/dominar)
-[![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@patelka2211/dominar)](https://bundlephobia.com/package/@patelka2211/dominar@1.1.8)
+[![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@patelka2211/dominar)](https://bundlephobia.com/package/@patelka2211/dominar@1.1.9)
 [![npm](https://img.shields.io/npm/dy/@patelka2211/dominar)](https://www.npmjs.com/package/@patelka2211/dominar)
-[![jsDelivr hits (npm scoped)](https://img.shields.io/jsdelivr/npm/hy/@patelka2211/dominar)](https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.8/)
-[![Libraries.io SourceRank, scoped npm package](https://img.shields.io/librariesio/sourcerank/npm/@patelka2211/dominar)](https://libraries.io/npm/@patelka2211%2Fdominar)
+[![jsDelivr hits (npm scoped)](https://img.shields.io/jsdelivr/npm/hy/@patelka2211/dominar)](https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.9/)
 
 To install Dominar using npm, run the following command:
 
@@ -24,10 +23,10 @@ To install Dominar using npm, run the following command:
 npm i @patelka2211/dominar
 ```
 
-Alternatively, you can include [Dominar's IIFE file](https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.8/Dominar.iife.js) in your website using a `<script>` tag:
+Alternatively, you can include [Dominar's IIFE file](https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.9/Dominar.iife.js) in your website using a `<script>` tag:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.8/Dominar.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.9/Dominar.iife.js"></script>
 ```
 
 ## Examples
@@ -89,10 +88,10 @@ addEventListeners(document.body, {
 
 ### When included as a `<script>` tag in a website.
 
-If the script tag is not already included in the `<head>` tag, please add the following script tag to include [Dominar's IIFE JavaScript](https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.8/Dominar.iife.js) file.
+If the script tag is not already included in the `<head>` tag, please add the following script tag to include [Dominar's IIFE JavaScript](https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.9/Dominar.iife.js) file.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.8/Dominar.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@patelka2211/dominar@1.1.9/Dominar.iife.js"></script>
 ```
 
 ```html
