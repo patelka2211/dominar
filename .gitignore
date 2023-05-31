@@ -9,5 +9,7 @@ node_modules
 # VSCode settings
 .vscode
 
-# Dominar IIFE file
+# Dominar distribution files
 Dominar.iife.js
+index.js
+index.d.ts
