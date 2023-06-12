@@ -12,5 +12,5 @@
         // "skipLibCheck": true
     },
     "include": ["src"],
-    "exclude": ["node_package", "**/__tests__/*"]
+    "exclude": ["node_package", "test"]
 }
