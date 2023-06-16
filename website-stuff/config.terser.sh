@@ -1,3 +1,3 @@
 #!/bin/bash
 
-terser "./js/index.iife.js" -c -m -o "./js/index.iife.js"
+terser "./js/index.bundle.js" -c -m -o "./js/index.bundle.js"

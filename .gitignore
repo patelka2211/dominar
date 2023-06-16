@@ -10,6 +10,9 @@ node_modules
 .vscode
 
 # Dominar distribution files
-Dominar.iife.js
 index.js
 index.d.ts
+
+# Build
+build.main.sh
+build.test.sh

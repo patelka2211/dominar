@@ -1,25 +1,25 @@
 import dts from "rollup-plugin-dts";
 
-const time = new Date(),
+const currentDate = new Date(),
+    options = { year: "numeric", month: "long", day: "numeric" },
+    formattedDate = currentDate.toLocaleDateString("en-US", options),
     banner = `/**
- * [**Dominar by KP**](https://www.npmjs.com/package/@patelka2211/dominar/)
+ * **Dominar** from KPVERSE
  *
- * Dominar is a powerful library designed to make it easy for developers to manipulate the Document Object Model (DOM) and create dynamic HTML content. Dominar empowers you to take control of your web development projects like a pro. Unleash the power to dominate the DOM with Dominar.
+ * Updated on ${formattedDate}.
+ *
+ * Copyright © 2023-present, Kartavya Patel. All rights reserved.
  *
  * @author Kartavya Patel <patelka2211@gmail.com>
  *
  * @license {@link https://github.com/patelka2211/dominar/blob/main/LICENSE MIT}
- *
- * @copyright Kartavya Patel ${time.getFullYear()}
- *
- * Last updated at : ${time.toISOString()}
  */`;
 
 export default [
     {
         input: "./lib/index.js",
         output: {
-            file: "./Dominar.iife.js",
+            file: "./Dominar.js",
             format: "iife",
             name: "Dominar",
             banner: banner,

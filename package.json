@@ -1,19 +1,18 @@
 {
   "name": "@patelka2211/dominar",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "description": "Dominar is a powerful library designed to make it easy for developers to manipulate the Document Object Model (DOM) and create dynamic HTML content. Dominar empowers you to take control of your web development projects like a pro. Unleash the power to dominate the DOM with Dominar.",
   "main": "index.js",
   "module": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "build": "rm -rf ./lib/ && tsc -p tsconfig.json && rollup -c && terser ./Dominar.iife.js -c -m -o ./Dominar.iife.js",
-    "test": "tsc test/index.ts -t es6 && rollup test/index.js -o test/out.js",
+    "build": "tsc -p ./tsconfig.json && rollup -c && terser ./index.js -c -m -o ./index.js && terser ./Dominar.js -c -m -o ./Dominar.js && rm -rf ./lib/",
+    "test": "tsc -p ./tsconfig.json && tsc ./test/index.ts -t es6 && rollup ./test/index.js -o ./test/out.js && rm -rf ./lib/",
     "prepare": "npm run build"
   },
   "files": [
     "index.js",
-    "index.d.ts",
-    "Dominar.iife.js"
+    "index.d.ts"
   ],
   "repository": {
     "type": "git",
@@ -22,7 +21,6 @@
   "keywords": [
     "Dominar",
     "Dominar.js",
-    "Dominar.iife.js",
     "front-end",
     "Dominar by KP",
     "Developed by KP",
