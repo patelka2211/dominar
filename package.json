@@ -1,14 +1,18 @@
 {
   "name": "@patelka2211/dominar",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Dominar is a powerful library designed to make it easy for developers to manipulate the Document Object Model (DOM) and create dynamic HTML content. Dominar empowers you to take control of your web development projects like a pro. Unleash the power to dominate the DOM with Dominar.",
   "main": "index.js",
   "module": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "build": "tsc -p ./tsconfig.json && rollup -c && terser ./index.js -c -m -o ./index.js && terser ./Dominar.js -c -m -o ./Dominar.js && rm -rf ./lib/",
-    "test": "tsc -p ./tsconfig.json && tsc ./test/index.ts -t es6 && rollup ./test/index.js -o ./test/out.js && rm -rf ./lib/",
-    "prepare": "npm run build"
+    "tsc-build": "tsc -p ./tsconfig.json",
+    "rollup-esm": "rollup -c --environment format:esm",
+    "rollup-iife": "rollup -c --environment format:iife",
+    "terser-esm": "terser ./index.js -c -m -o ./index.js",
+    "terser-iife": "terser ./Dominar.js -c -m -o ./Dominar.js",
+    "build": "npm run tsc-build && npm run rollup-esm && npm run rollup-iife && npm run terser-esm && npm run terser-iife && rm -rf ./lib/",
+    "test-build": "npm run tsc-build && npm run rollup-esm && tsc ./test/index.ts -t es6 && rollup ./test/index.js -o ./test/out.js && rm -rf ./lib/"
   },
   "files": [
     "index.js",
@@ -20,12 +24,14 @@
   },
   "keywords": [
     "Dominar",
+    "Dominar from KPVERSE",
     "Dominar.js",
-    "front-end",
+    "KPVERSE",
     "Dominar by KP",
     "Developed by KP",
     "Kartavya Patel",
     "patelka2211",
+    "front-end",
     "Dynamic content",
     "DOM manipulation",
     "Front-end development",

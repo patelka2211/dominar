@@ -16,3 +16,4 @@ index.d.ts
 # Build
 build.main.sh
 build.test.sh
+build.iife.js

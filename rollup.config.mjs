@@ -16,16 +16,7 @@ const currentDate = new Date(),
  */`;
 
 export default [
-    {
-        input: "./lib/index.js",
-        output: {
-            file: "./Dominar.js",
-            format: "iife",
-            name: "Dominar",
-            banner: banner,
-        },
-    },
-    {
+    process.env.format === "esm" && {
         input: "./lib/index.js",
         output: {
             file: "index.js",
@@ -33,7 +24,7 @@ export default [
             banner: `${banner}'use strict';`,
         },
     },
-    {
+    process.env.format === "esm" && {
         input: "./src/index.ts",
         output: {
             file: "index.d.ts",
@@ -41,4 +32,12 @@ export default [
         },
         plugins: [dts()],
     },
-];
+    process.env.format === "iife" && {
+        input: "./build.iife.js",
+        output: {
+            file: "./Dominar.js",
+            format: "iife",
+            banner: banner,
+        },
+    },
+].filter(Boolean);
