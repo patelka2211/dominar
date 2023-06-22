@@ -1,4 +1,4 @@
-[![](https://cdn.jsdelivr.net/gh/patelka2211/dominar/website-stuff/media/poster.jpg)](https://patelka2211.github.io/dominar)
+[![](https://cdn.jsdelivr.net/gh/patelka2211/dominar@master/website-stuff/media/poster.jpg)](https://patelka2211.github.io/dominar)
 
 # Dominar
 
@@ -26,7 +26,10 @@ npm i @patelka2211/dominar
 Alternatively, you can include [Dominar's IIFE file](https://cdn.jsdelivr.net/gh/patelka2211/dominar@1.2.1/Dominar.js) in your website using a `<script>` tag:
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/patelka2211/dominar@1.2.1/Dominar.js"></script>
+<script
+    async
+    src="https://cdn.jsdelivr.net/gh/patelka2211/dominar@1.2.1/Dominar.js"
+></script>
 ```
 
 ## Examples
@@ -91,7 +94,10 @@ addEventListeners(document.body, {
 If the script tag is not already included in the `<head>` tag, please add the following script tag to include [Dominar's IIFE JavaScript](https://cdn.jsdelivr.net/gh/patelka2211/dominar@1.2.1/Dominar.js) file.
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/patelka2211/dominar@1.2.1/Dominar.js"></script>
+<script
+    async
+    src="https://cdn.jsdelivr.net/gh/patelka2211/dominar@1.2.1/Dominar.js"
+></script>
 ```
 
 ```html
