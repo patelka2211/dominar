@@ -1,4 +1,4 @@
-[![](https://cdn.jsdelivr.net/gh/patelka2211/dominar/website-stuff/media/poster.png)](https://patelka2211.github.io/dominar)
+[![](https://cdn.jsdelivr.net/gh/patelka2211/dominar/website-stuff/media/poster.jpg)](https://patelka2211.github.io/dominar)
 
 # Dominar
 
