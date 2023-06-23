@@ -23,12 +23,19 @@ async function render(
 ): Promise<void> {
     let { clearBeforeRender, insertType } = options;
 
-    if (clearBeforeRender === undefined) clearBeforeRender = true;
-    if (clearBeforeRender === true) root.innerHTML = "";
+    if (typeof clearBeforeRender !== "boolean") clearBeforeRender = true;
 
-    if (clearBeforeRender === true || insertType === undefined)
+    if (clearBeforeRender === true) {
+        root.innerHTML = "";
         insertType = "append";
+    }
 
+    if (insertType === undefined) insertType = "append";
+
+    if (insertType !== "append" && insertType !== "prepend")
+        throw Error(
+            `'insertType' in options can be 'append' or 'prepend' but not '${insertType}'.`
+        );
     insertChildren(root, children, insertType);
 }
 

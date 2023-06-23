@@ -30,14 +30,11 @@ function insertChildren(
         root[insertType](children.renderedTag);
     else if (children instanceof DominarTagList) {
         let renderedTagList = children.renderedTagList,
-            multiplier1 = insertType === "append" ? 0 : 1,
-            multiplier2 = insertType === "append" ? 1 : -1;
-
-        for (let index = 0; index < renderedTagList.length; index++) {
+            tagListLength = renderedTagList.length;
+        for (let index = 0; index < tagListLength; index++) {
             root[insertType](
                 renderedTagList[
-                    (renderedTagList.length - 1) * multiplier1 +
-                        index * multiplier2
+                    insertType === "append" ? index : tagListLength - 1 - index
                 ]
             );
         }
