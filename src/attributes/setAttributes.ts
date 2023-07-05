@@ -1,4 +1,5 @@
-type DominarTagAttributes = { [attributeName: string]: string | number | true };
+import { DominarTagAttributes } from "./types";
+
 /**
  * Sets the attributes of an HTML element based on the provided object.
  *
@@ -6,7 +7,7 @@ type DominarTagAttributes = { [attributeName: string]: string | number | true };
  * @param {Object} attributes An object containing the attribute names and values to set.
  * @returns {HTMLElement} The same HTML element with the updated attributes.
  */
-function setAttributes(
+export function setAttributes(
     element: HTMLElement,
     attributes: DominarTagAttributes
 ): HTMLElement {
@@ -26,5 +27,3 @@ function setAttributes(
     }
     return element;
 }
-
-export { DominarTagAttributes, setAttributes };

@@ -1,6 +1,6 @@
 {
   "name": "@patelka2211/dominar",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Dominar is a powerful library designed to make it easy for developers to manipulate the Document Object Model (DOM) and create dynamic HTML content. Dominar empowers you to take control of your web development projects like a pro. Unleash the power to dominate the DOM with Dominar.",
   "main": "index.js",
   "module": "index.js",
@@ -9,7 +9,7 @@
     "tsc-build": "tsc -p ./tsconfig.json",
     "rollup-esm": "rollup -c --environment format:esm",
     "rollup-iife": "rollup -c --environment format:iife",
-    "terser-esm": "terser ./index.js -c -m -o ./index.js",
+    "terser-esm": "terser ./index.js -c -m --toplevel -o ./index.js",
     "terser-iife": "terser ./Dominar.js -c -m -o ./Dominar.js",
     "build": "npm run tsc-build && npm run rollup-esm && npm run rollup-iife && npm run terser-esm && npm run terser-iife && rm -rf ./lib/",
     "test-build": "npm run tsc-build && npm run rollup-esm && tsc ./test/index.ts -t es6 && rollup ./test/index.js -o ./test/out.js && rm -rf ./lib/"

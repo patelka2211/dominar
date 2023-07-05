@@ -4,7 +4,6 @@
         "lib": ["ES2017", "DOM"],
         "module": "ES6",
         "rootDir": "./src",
-        "declaration": true,
         "outDir": "./lib",
         "strict": true
     },

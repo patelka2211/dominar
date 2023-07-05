@@ -1,7 +1,7 @@
 /**
  * Represents a parsed SVG.
  */
-class parsedSVG {
+export class parsedSVG {
     /**
      * The root SVG element of the parsed SVG.
      * @type {SVGSVGElement | null}
@@ -27,15 +27,3 @@ class parsedSVG {
         if (this.svg?.querySelector("parsererror") !== null) this.svg = null;
     }
 }
-
-/**
- * Parses an SVG string and returns a parsedSVG instance.
- * @function
- * @param {string} svgString The SVG string to be parsed.
- * @returns {parsedSVG} The parsed SVG.
- */
-function SVGParser(svgString: string): parsedSVG {
-    return new parsedSVG(svgString);
-}
-
-export { parsedSVG, SVGParser };

@@ -1,8 +1,7 @@
-import { DominarTagChildren, insertChildren, childrenInsertType } from "./tags";
-type RenderOptions = {
-    clearBeforeRender?: boolean;
-    insertType?: childrenInsertType;
-};
+import { insertChildren } from "../children/insertChildren";
+import { DominarTagChildren } from "../tag/types";
+import { RenderOptions } from "./types";
+
 /**
  * Renders a DOM element or a list of elements to a specified HTML element.
  *
@@ -14,7 +13,7 @@ type RenderOptions = {
  * @returns {Promise<void>} A Promise that resolves when the rendering is complete.
  * @throws {Error} If the root parameter is null or undefined.
  */
-async function render(
+export async function render(
     root: HTMLElement,
     children: DominarTagChildren,
     options: RenderOptions = {
@@ -30,7 +29,7 @@ async function render(
         insertType = "append";
     }
 
-    if (insertType === undefined) insertType = "append";
+    if (!insertType) insertType = "append";
 
     if (insertType !== "append" && insertType !== "prepend")
         throw Error(
@@ -38,5 +37,3 @@ async function render(
         );
     insertChildren(root, children, insertType);
 }
-
-export { render };

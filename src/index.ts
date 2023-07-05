@@ -1,5 +1,11 @@
-export { insertChildren, tag, tagList } from "./tags";
-export { render } from "./render";
-export { setAttributes } from "./attributes";
-export { addEventListeners, removeEventListeners } from "./eventListeners";
-export { SVGParser } from "./svgParser";
+export { setAttributes } from "./attributes/setAttributes";
+export { insertChildren } from "./children/insertChildren";
+export { addEventListeners } from "./eventListeners/addEventListeners";
+export { removeEventListeners } from "./eventListeners/removeEventListeners";
+export { isInstanceOfDominarTag } from "./tag/isInstanceOfDominarTag";
+export { isInstanceOfDominarTagList } from "./tagList/isInstanceOfDominarTagList";
+export { isInstanceOfParsedSVG } from "./svg-parser/isInstanceOfparsedSVG";
+export { render } from "./render/index";
+export { SVGParser } from "./svg-parser/index";
+export { tag } from "./tag/index";
+export { tagList } from "./tagList/index";
