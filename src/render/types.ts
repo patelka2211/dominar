@@ -1,6 +1,9 @@
 import { childrenInsertType } from "../tag/types";
 
-export type RenderOptions = {
+/**
+ * Represents the options for rendering.
+ */
+export type RenderOptionsType = {
     clearBeforeRender?: boolean;
     insertType?: childrenInsertType;
 };

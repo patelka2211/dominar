@@ -1,10 +1,10 @@
 import { DominarTagList } from "./DominarTagList";
 
 /**
- * Checks if the given object is an instance of `DominarTagList` object.
- * @param object An object which is going to be checked.
- * @returns `true` if the object is an instance of `DominarTagList`, `false` otherwise.
+ * Checks if an object is an instance of DominarTagList.
+ * @param {unknown} object - The object to be checked.
+ * @returns {boolean} `true` if the object is an instance of DominarTagList, otherwise `false`.
  */
-export function isInstanceOfDominarTagList(object: unknown) {
+export function isInstanceOfDominarTagList(object: unknown): boolean {
     return object instanceof DominarTagList;
 }

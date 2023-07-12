@@ -1,28 +1,33 @@
 import { setAttributes } from "../attributes/setAttributes";
 import { insertChildren } from "../children/insertChildren";
 import { addEventListeners } from "../eventListeners/addEventListeners";
-import { DominarTagData } from "./types";
+import { attachEventListeners } from "../eventListeners/attachEventListeners";
+import { DominarTagDataType } from "./types";
 
 /**
- * Represents a DOM element wrapped in a DominarTag.
+ * Represents a Dominar tag.
  */
 export class DominarTag {
     /**
-     * The rendered DOM element of the tag.
-     * @type {HTMLElement}
+     * The rendered HTML tag element.
      */
     public renderedTag: HTMLElement;
 
     /**
-     * Creates an instance of the DominarTag class.
-     * @param {string} tagName The name of the tag to create.
-     * @param {DominarTagData} [tagData] Optional data for initializing the tag.
+     * Creates a Dominar tag instance.
+     * @param {string} tagName - The name of the HTML tag.
+     * @param {DominarTagDataType} tagData - The data for the tag.
      */
-    constructor(tagName: string, tagData?: DominarTagData) {
+    constructor(tagName: string, tagData?: DominarTagDataType) {
         this.renderedTag = document.createElement(tagName);
 
         if (tagData) {
-            let { attributes, children, eventListeners } = tagData;
+            let {
+                attributes,
+                children,
+                addEventListeners: eventsToBeAdded,
+                attachEventListeners: eventsToBeAttached,
+            } = tagData;
 
             // Set attributes
             if (attributes) setAttributes(this.renderedTag, attributes);
@@ -31,16 +36,19 @@ export class DominarTag {
             if (children) insertChildren(this.renderedTag, children);
 
             // Add event listeners
-            if (eventListeners)
-                addEventListeners(this.renderedTag, eventListeners);
+            if (eventsToBeAdded)
+                addEventListeners(this.renderedTag, eventsToBeAdded);
+
+            // Attach event listeners
+            if (eventsToBeAttached)
+                attachEventListeners(this.renderedTag, eventsToBeAttached);
         }
     }
 
     /**
-     * Executes an additional action on the rendered HTML element.
-     *
-     * @param {function} performAction A callback function that performs the action on the HTML element. The function takes an `HTMLElement` as its argument and does not return any value.
-     * @returns {DominarTag} The current instance of the DominarTag, allowing for method chaining.
+     * Performs an additional action on the rendered tag.
+     * @param {Function} performAction - The action to be performed on the rendered tag.
+     * @returns {DominarTag} The Dominar tag instance.
      */
     additionally(performAction: (tag: HTMLElement) => void): DominarTag {
         performAction(this.renderedTag);

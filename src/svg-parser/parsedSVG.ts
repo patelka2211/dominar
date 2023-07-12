@@ -3,15 +3,13 @@
  */
 export class parsedSVG {
     /**
-     * The root SVG element of the parsed SVG.
-     * @type {SVGSVGElement | null}
+     * The parsed SVG element.
      */
     public svg: SVGSVGElement | null;
 
     /**
-     * Creates a new parsedSVG instance.
-     * @constructor
-     * @param {string} svgString The SVG string to be parsed.
+     * Creates a parsed SVG instance.
+     * @param {string} svgString - The SVG string to be parsed.
      */
     constructor(svgString: string) {
         // Create a new DOM parser

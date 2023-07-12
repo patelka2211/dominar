@@ -1,15 +1,14 @@
-import { DominarTagAttributes } from "./types";
+import { DominarTagAttributesType } from "./types";
 
 /**
- * Sets the attributes of an HTML element based on the provided object.
- *
- * @param {HTMLElement} element The HTML element to set the attributes on.
- * @param {Object} attributes An object containing the attribute names and values to set.
- * @returns {HTMLElement} The same HTML element with the updated attributes.
+ * Sets the attributes of an HTML element.
+ * @param {HTMLElement} element - The HTML element.
+ * @param {DominarTagAttributesType} attributes - The attributes to be set.
+ * @returns {HTMLElement} The modified HTML element.
  */
 export function setAttributes(
     element: HTMLElement,
-    attributes: DominarTagAttributes
+    attributes: DominarTagAttributesType
 ): HTMLElement {
     for (const attributeName in attributes) {
         if (Object.prototype.hasOwnProperty.call(attributes, attributeName)) {

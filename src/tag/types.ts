@@ -1,12 +1,18 @@
-import { DominarTagAttributes } from "../attributes/types";
-import { DominarTagEventListeners } from "../eventListeners/types";
+import { DominarTagAttributesType } from "../attributes/types";
+import { DominarTagEventListenersType } from "../eventListeners/types";
 import { parsedSVG } from "../svg-parser/parsedSVG";
 import { DominarTagList } from "../tagList/DominarTagList";
 import { DominarTag } from "./DominarTag";
 
+/**
+ * Represents the type of insertion for tag children.
+ */
 export type childrenInsertType = "prepend" | "append";
 
-export type DominarTagChildren =
+/**
+ * Represents the children of a Dominar tag.
+ */
+export type DominarTagChildrenType =
     | string
     | number
     | DominarTag
@@ -14,8 +20,12 @@ export type DominarTagChildren =
     | parsedSVG
     | HTMLElement;
 
-export type DominarTagData = {
-    attributes?: DominarTagAttributes;
-    children?: DominarTagChildren;
-    eventListeners?: DominarTagEventListeners;
+/**
+ * Represents the data for a Dominar tag.
+ */
+export type DominarTagDataType = {
+    attributes?: DominarTagAttributesType;
+    children?: DominarTagChildrenType;
+    addEventListeners?: DominarTagEventListenersType;
+    attachEventListeners?: DominarTagEventListenersType;
 };

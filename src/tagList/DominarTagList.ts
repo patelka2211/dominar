@@ -1,23 +1,23 @@
-import { isInstanceOfDominarTag } from "../tag/isInstanceOfDominarTag";
 import { isInstanceOfParsedSVG } from "../svg-parser/isInstanceOfparsedSVG";
 import { parsedSVG } from "../svg-parser/parsedSVG";
 import { DominarTag } from "../tag/DominarTag";
-import { DominarTagListData } from "./types";
+import { isInstanceOfDominarTag } from "../tag/isInstanceOfDominarTag";
+import { DominarTagListDataType } from "./types";
 
 /**
- * Represents a list of rendered HTML tags.
+ * Represents a list of Dominar tags.
  */
 export class DominarTagList {
     /**
-     * The array of rendered tags, which can be either strings or HTML elements.
+     * The rendered list of tags.
      */
     public renderedTagList: (string | HTMLElement | SVGSVGElement)[] = [];
 
     /**
-     * Constructs a new instance of the DominarTagList class.
-     * @param {DominarTagListData} tags The initial list of tags.
+     * Creates a Dominar tag list instance.
+     * @param {DominarTagListDataType} tags - The tags to be included in the list.
      */
-    constructor(tags: DominarTagListData) {
+    constructor(tags: DominarTagListDataType) {
         tags.forEach((tag) => {
             if (typeof tag === "string" || typeof tag === "number")
                 this.renderedTagList.push(String(tag));

@@ -1,10 +1,10 @@
 import { parsedSVG } from "./parsedSVG";
 
 /**
- * Checks if the given object is an instance of `parsedSVG` object.
- * @param object An object which is going to be checked.
- * @returns `true` if the object is an instance of `parsedSVG`, `false` otherwise.
+ * Checks if an object is an instance of parsedSVG.
+ * @param {unknown} object - The object to be checked.
+ * @returns {boolean} `true` if the object is an instance of parsedSVG, otherwise `false`.
  */
-export function isInstanceOfParsedSVG(object: unknown) {
+export function isInstanceOfParsedSVG(object: unknown): boolean {
     return object instanceof parsedSVG;
 }
