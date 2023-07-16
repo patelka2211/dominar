@@ -45,7 +45,7 @@
   "bugs": {
     "url": "https://github.com/patelka2211/dominar/issues"
   },
-  "homepage": "https://patelka2211.github.io/dominar",
+  "homepage": "https://kpverse.in/dominar/",
   "devDependencies": {
     "rollup": "^3.25.1",
     "rollup-plugin-dts": "^5.3.0",

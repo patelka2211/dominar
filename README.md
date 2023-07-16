@@ -1,14 +1,14 @@
-[![](https://cdn.jsdelivr.net/gh/patelka2211/dominar/website-stuff/media/poster.jpg)](https://patelka2211.github.io/dominar)
+[![](https://cdn.jsdelivr.net/gh/patelka2211/dominar/website-stuff/media/poster.jpg)](https://kpverse.in/dominar/)
 
-# Dominar
+# [Dominar from KPVERSE](https://kpverse.in/dominar/)
 
 Dominar is a powerful library designed to make it easy for developers to manipulate the Document Object Model (DOM) and create dynamic HTML content. Dominar empowers you to take control of your web development projects like a pro. Unleash the power to dominate the DOM with Dominar.
 
 ## Demo
 
-[![](https://cdn.jsdelivr.net/gh/patelka2211/dominar/website-stuff/media/preview.gif)](https://patelka2211.github.io/dominar)
+[![](https://cdn.jsdelivr.net/gh/patelka2211/dominar/website-stuff/media/preview.gif)](https://kpverse.in/dominar/)
 
-Visit [https://patelka2211.github.io/dominar/](https://patelka2211.github.io/dominar/) and click on "✨ See live preview" button to see a to-do app built using Dominar.
+Visit [https://kpverse.in/dominar/](https://kpverse.in/dominar/) and click on "✨ See live preview" button to see a to-do app built using Dominar.
 
 ## Installation
 
