@@ -4,7 +4,7 @@ const currentDate = new Date(),
     options = { year: "numeric", month: "long", day: "numeric" },
     formattedDate = currentDate.toLocaleDateString("en-US", options),
     banner = `/**
- * **Dominar** from KPVERSE
+ * Dominar from KPVERSE
  *
  * Updated on ${formattedDate}.
  *
@@ -21,7 +21,7 @@ export default [
         output: {
             file: "index.js",
             format: "es",
-            banner: `"use strict";`,
+            banner: `${banner}'use strict';`,
         },
     },
     process.env.format === "esm" && {
